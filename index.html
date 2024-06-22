@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos - Kings Collection</title>
+    <style>
+        body {
+            background-color: #36393f;
+            color: #ffffff;
+            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            margin-right: auto;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        nav .logo i {
+            margin-right: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            margin-top: 20px;
+            flex: 1;
+        }
+
+        .content {
+            width: 60%;
+            padding: 20px;
+            background-color: #2f3136;
+            border-radius: 8px;
+        }
+
+        .preview {
+            width: 40%;
+            padding: 20px;
+            background-color: #2f3136;
+            border-radius: 8px;
+        }
+
+        #fileList {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .file-item, .folder-item {
+            margin: 10px 0;
+        }
+
+        .file-item a, .folder-item > span, .folder-item > a {
+            color: #7289da;
+            text-decoration: none;
+            padding: 7px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .file-item a:hover, .folder-item > span:hover, .folder-item > a:hover {
+            background-color: #42454a;
+        }
+
+        .folder-item ul {
+            list-style-type: none;
+            padding-left: 20px;
+            display: none;
+        }
+
+        .folder-item ul.open {
+            display: block;
+        }
+
+        .folder-item i {
+            margin-right: 10px;
+        }
+
+        .file-item button {
+            background-color: #7289da;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .file-item button:hover {
+            background-color: #5b6eae;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-crown"></i>
+            <span>Kings Collection</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <h1>Videos</h1>
+            <ul id="fileList"></ul>
+        </div>
+        <div class="preview">
+            <iframe id="previewFrame" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+    <footer>
+        King Private Limited
+    </footer>
+
+    <script>
+        async function fetchFolderContents(folderUrl, parentList, path = '') {
+            try {
+                const response = await fetch(folderUrl, {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log('Data fetched from', folderUrl, data); // Debugging line
+
+                const files = data.filter(item => item.type === 'file');
+                const folders = data.filter(item => item.type === 'dir');
+
+                files.forEach(file => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('file-item');
+
+                    const link = document.createElement('a');
+                    link.textContent = file.name;
+                    link.href = file.download_url;
+                    link.download = file.name;
+
+                    // Add preview button
+                    const previewButton = document.createElement('button');
+                    previewButton.textContent = 'Preview';
+                    previewButton.onclick = () => previewFile(file.download_url);
+
+                    listItem.appendChild(link);
+                    listItem.appendChild(previewButton);
+                    parentList.appendChild(listItem);
+                });
+
+                for (const folder of folders) {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('folder-item');
+
+                    const folderName = document.createElement('span');
+                    folderName.innerHTML = `<i class="fas fa-folder"></i> ${folder.name}`;
+
+                    const nestedList = document.createElement('ul');
+
+                    folderName.addEventListener('click', async function () {
+                        if (nestedList.classList.contains('open')) {
+                            nestedList.classList.remove('open');
+                        } else {
+                            if (nestedList.childElementCount === 0) {
+                                await fetchFolderContents(folder.url, nestedList, path + '/' + folder.name);
+                            }
+                            nestedList.classList.add('open');
+                        }
+                    });
+
+                    const downloadLink = document.createElement('a');
+                    downloadLink.innerHTML = `<i class="fas fa-download"></i>`;
+                    downloadLink.href = `https://github.com/Assessments2727/Assessments/archive/refs/heads/main.zip`;
+                    downloadLink.download = `${path}/${folder.name}.zip`;
+                    downloadLink.title = "Download folder as zip";
+
+                    listItem.appendChild(folderName);
+                    listItem.appendChild(downloadLink);
+                    listItem.appendChild(nestedList);
+                    parentList.appendChild(listItem);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                alert('Error fetching data: ' + error.message);
+            }
+        }
+
+        async function previewFile(url) {
+            const previewFrame = document.getElementById('previewFrame');
+            const encodedUrl = encodeURIComponent(url);
+            let previewUrl = '';
+
+            if (url.endsWith('.pdf')) {
+                previewUrl = `https://drive.google.com/viewerng/viewer?embedded=true&url=${encodedUrl}`;
+            } else if (url.endsWith('.doc') || url.endsWith('.docx')) {
+                previewUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}`;
+            } else if (url.endsWith('.ppt') || url.endsWith('.pptx')) {
+                previewUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}`;
+            } else {
+                alert('File type not supported for preview.');
+                return;
+            }
+
+            previewFrame.src = previewUrl;
+        }
+
+        (async function() {
+            const repoOwner = 'Videos2727';
+            const repoName = 'Videos';
+            const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents`;
+            await fetchFolderContents(apiUrl, document.getElementById('fileList'));
+        })();
+    </script>
+</body>
+</html>
