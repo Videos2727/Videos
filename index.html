@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>School Vault – Resources</title>
+  <title>WACE School Vault – Year 11 & 12 Resources</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
@@ -93,6 +93,7 @@
       border: 1px solid rgba(56, 189, 248, 0.6);
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      text-align: center;
     }
 
     .panel {
@@ -235,14 +236,16 @@
     <header>
       <div>
         <div class="title">
-          <span class="logo">V</span>
-          <span>School Vault</span>
+          <span class="logo">W</span>
+          <span>WACE Vault – Yr 11 & 12</span>
         </div>
         <div class="subtitle">
-          Select your subject and year to view available PDFs and resources.
+          Browse WACE-style resources by subject, year level, and course type (ATAR / General). Files are hosted in Sync with public view links.
         </div>
       </div>
-      <div class="badge">GitHub Pages • Static</div>
+      <div class="badge">
+        GitHub Pages (static) + Sync.com (storage)
+      </div>
     </header>
 
     <!-- LEFT: controls -->
@@ -251,7 +254,10 @@
         <span class="icon">📁</span>
         <span>Browse resources</span>
       </h2>
-      <small>Files are stored in this GitHub repo under <code>resources/&lt;subject&gt;/&lt;year&gt;/...</code></small>
+      <small>
+        Select a WACE subject, year level (11 or 12) and course type
+        (ATAR / General) to view resources. Each file opens from a Sync link.
+      </small>
 
       <div class="row">
         <div>
@@ -265,13 +271,13 @@
       </div>
 
       <div>
-        <label for="categorySelect">Category (optional)</label>
+        <label for="categorySelect">Course type</label>
         <select id="categorySelect"></select>
       </div>
 
       <p class="hint">
-        To add more files: upload them into the matching <code>resources/...</code> folder in GitHub and then add an entry
-        into the JavaScript data below (no backend needed).
+        To add a resource: create a public view link in Sync, then paste it into
+        the <code>VAULT_DATA</code> object below as the <code>path</code> for that subject/year/course type.
       </p>
     </section>
 
@@ -287,14 +293,14 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th style="width: 90px;">Size</th>
-            <th style="width: 90px;">Type</th>
+            <th style="width: 100px;">Format</th>
+            <th style="width: 80px;">Type</th>
           </tr>
         </thead>
         <tbody id="fileTableBody">
           <tr>
             <td colspan="3" class="muted small">
-              Choose a subject and year to see available resources.
+              Choose a subject, year and course type to see available Sync links.
             </td>
           </tr>
         </tbody>
@@ -302,65 +308,433 @@
     </section>
 
     <footer>
-      Static “vault” generated on the client using a simple JavaScript manifest.
-      Host on <a href="https://pages.github.com" target="_blank">GitHub Pages</a> and update the data as you add files.
+      Static vault generated on the client using a simple JavaScript manifest.
+      Host this file on <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>,
+      store PDFs in Sync.com, and paste public links into <code>VAULT_DATA</code>.
     </footer>
   </div>
 
   <script>
     /************************************************************
-     * DATA: describe your resources here
-     * -----------------------------------
-     * "path" should match the actual file path in your repo.
-     * Example: resources/human_bio/y12/textbooks/ATF_HB_Rev_Series.pdf
+     * VAULT_DATA
+     * ----------
+     * Structure:
+     *   Subject → Year → Course type (ATAR / General) → [ files ]
+     * Each "path" should be a public Sync link (view-only).
      ************************************************************/
 
     const VAULT_DATA = {
-      "Human Biology": {
-        "Year 12": {
-          "Textbooks": [
+      "English": {
+        "Year 11": {
+          "ATAR": [
             {
-              name: "Academic Task Force – Human Biology ATAR Course Revision Series (Units 3 & 4)",
-              path: "resources/human_bio/y12/textbooks/HB_ATF_Rev_3_4.pdf",
-              size: "77 MB",
-              type: "PDF"
+              name: "English Y11 ATAR – Course Outline",
+              path: "https://YOUR_SYNC_LINK/english_y11_atar_course_outline.pdf",
+              size: "PDF",
+              type: "Sync link"
             },
             {
-              name: "Academic Task Force – Human Biology ATAR Course Textbook",
-              path: "resources/human_bio/y12/textbooks/HB_ATF_Textbook.pdf",
-              size: "65 MB",
-              type: "PDF"
+              name: "English Y11 ATAR – Assessment Package",
+              path: "https://YOUR_SYNC_LINK/english_y11_atar_assessment_package.pdf",
+              size: "PDF",
+              type: "Sync link"
             }
           ],
-          "Tests & Exams": [
+          "General": [
             {
-              name: "2023 ATAR Practice Exam – Human Biology Units 3 & 4",
-              path: "resources/human_bio/y12/exams/2023_HB_Practice_Exam.pdf",
-              size: "4.2 MB",
-              type: "PDF"
+              name: "English Y11 General – Sample Assessments",
+              path: "https://YOUR_SYNC_LINK/english_y11_general_assessments.pdf",
+              size: "PDF",
+              type: "Sync link"
+            }
+          ]
+        },
+        "Year 12": {
+          "ATAR": [
+            {
+              name: "English Y12 ATAR – ATAR Practice Exams",
+              path: "https://YOUR_SYNC_LINK/english_y12_atar_practice_exams.pdf",
+              size: "PDF",
+              type: "Sync link"
+            }
+          ],
+          "General": [
+            {
+              name: "English Y12 General – Revision Booklet",
+              path: "https://YOUR_SYNC_LINK/english_y12_general_revision_booklet.pdf",
+              size: "PDF",
+              type: "Sync link"
             }
           ]
         }
       },
 
-      "Chemistry": {
-        "Year 12": {
-          "Textbooks": [
+      "Mathematics Applications": {
+        "Year 11": {
+          "ATAR": [
             {
-              name: "Academic Task Force – Chemistry ATAR Course Revision Series (Units 3 & 4)",
-              path: "resources/chemistry/y12/textbooks/Chem_ATF_Rev_3_4.pdf",
-              size: "80 MB",
-              type: "PDF"
+              name: "Maths Applications Y11 ATAR – Topic Tests",
+              path: "https://YOUR_SYNC_LINK/maths_app_y11_atar_topic_tests.pdf",
+              size: "PDF",
+              type: "Sync link"
             }
           ],
-          "Exams": [
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [
             {
-              name: "2022 ATAR Exam – Chemistry",
-              path: "resources/chemistry/y12/exams/2022_ATAR_Chem_Exam.pdf",
-              size: "3.8 MB",
-              type: "PDF"
+              name: "Maths Applications Y12 ATAR – Exam Pack",
+              path: "https://YOUR_SYNC_LINK/maths_app_y12_atar_exam_pack.pdf",
+              size: "PDF",
+              type: "Sync link"
             }
-          ]
+          ],
+          "General": []
+        }
+      },
+
+      "Mathematics Methods": {
+        "Year 11": {
+          "ATAR": [
+            {
+              name: "Maths Methods Y11 ATAR – Problem Set Booklet",
+              path: "https://YOUR_SYNC_LINK/maths_methods_y11_atar_problem_sets.pdf",
+              size: "PDF",
+              type: "Sync link"
+            }
+          ],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [
+            {
+              name: "Maths Methods Y12 ATAR – Practice Exams",
+              path: "https://YOUR_SYNC_LINK/maths_methods_y12_atar_practice_exams.pdf",
+              size: "PDF",
+              type: "Sync link"
+            }
+          ],
+          "General": []
+        }
+      },
+
+      "Mathematics Specialist": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Mathematics Essential": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Biology": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Human Biology": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [
+            {
+              name: "Human Biology Y12 ATAR – ATF Revision Series Units 3 & 4",
+              path: "https://YOUR_SYNC_LINK/hb_y12_atar_atf_revision_3_4.pdf",
+              size: "PDF",
+              type: "Sync link"
+            },
+            {
+              name: "Human Biology Y12 ATAR – Practice Exams",
+              path: "https://YOUR_SYNC_LINK/hb_y12_atar_practice_exams.pdf",
+              size: "PDF",
+              type: "Sync link"
+            }
+          ],
+          "General": []
+        }
+      },
+
+      "Chemistry": {
+        "Year 11": {
+          "ATAR": [
+            {
+              name: "Chemistry Y11 ATAR – Topic Tests",
+              path: "https://YOUR_SYNC_LINK/chem_y11_atar_topic_tests.pdf",
+              size: "PDF",
+              type: "Sync link"
+            }
+          ],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [
+            {
+              name: "Chemistry Y12 ATAR – ATF Revision Series Units 3 & 4",
+              path: "https://YOUR_SYNC_LINK/chem_y12_atar_atf_revision_3_4.pdf",
+              size: "PDF",
+              type: "Sync link"
+            },
+            {
+              name: "Chemistry Y12 ATAR – WACE-style Exam Pack",
+              path: "https://YOUR_SYNC_LINK/chem_y12_atar_exam_pack.pdf",
+              size: "PDF",
+              type: "Sync link"
+            }
+          ],
+          "General": []
+        }
+      },
+
+      "Physics": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Psychology": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Earth and Environmental Science": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Modern History": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Ancient History": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Geography": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Economics": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Politics and Law": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Health Studies": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Physical Education Studies": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Applied Information Technology": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Computer Science": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Accounting and Finance": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Business Management and Enterprise": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Children, Family and the Community": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Food Science and Technology": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Engineering Studies": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Visual Arts": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Drama": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Dance": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
+        }
+      },
+
+      "Media Production and Analysis": {
+        "Year 11": {
+          "ATAR": [],
+          "General": []
+        },
+        "Year 12": {
+          "ATAR": [],
+          "General": []
         }
       }
     };
@@ -376,7 +750,7 @@
     const currentPathLabel = document.getElementById("currentPathLabel");
 
     function initSubjects() {
-      const subjects = Object.keys(VAULT_DATA);
+      const subjects = Object.keys(VAULT_DATA).sort();
       if (subjects.length === 0) {
         subjectSelect.innerHTML = "<option>No subjects defined</option>";
         return;
@@ -389,7 +763,7 @@
     function initYears() {
       const subject = subjectSelect.value;
       const yearsObj = VAULT_DATA[subject] || {};
-      const years = Object.keys(yearsObj);
+      const years = Object.keys(yearsObj).sort();
       yearSelect.innerHTML = years
         .map((y, i) => `<option value="${y}" ${i === 0 ? "selected" : ""}>${y}</option>`)
         .join("");
@@ -400,9 +774,13 @@
       const year = yearSelect.value;
       const categoriesObj = VAULT_DATA[subject]?.[year] || {};
       const categories = Object.keys(categoriesObj);
-      categorySelect.innerHTML = categories.length
-        ? categories.map((c, i) => `<option value="${c}" ${i === 0 ? "selected" : ""}>${c}</option>`).join("")
-        : `<option value="">(No categories)</option>`;
+      if (!categories.length) {
+        categorySelect.innerHTML = `<option value="">(No course types)</option>`;
+        return;
+      }
+      categorySelect.innerHTML = categories
+        .map((c, i) => `<option value="${c}" ${i === 0 ? "selected" : ""}>${c}</option>`)
+        .join("");
     }
 
     function renderFiles() {
@@ -414,14 +792,14 @@
 
       currentPathLabel.textContent =
         files.length
-          ? `${subject} → ${year} → ${category} (${files.length} file${files.length === 1 ? "" : "s"})`
-          : `No files for ${subject} / ${year} / ${category} yet.`;
+          ? `${subject} → ${year} → ${category} (${files.length} resource${files.length === 1 ? "" : "s"})`
+          : `No Sync links defined yet for ${subject} / ${year} / ${category}.`;
 
       if (!files.length) {
         fileTableBody.innerHTML = `
           <tr>
             <td colspan="3" class="muted small">
-              No files defined here yet. Add entries to VAULT_DATA in the script.
+              No files defined here yet. Create a Sync public link and add an entry to <code>VAULT_DATA</code>.
             </td>
           </tr>
         `;
@@ -436,10 +814,8 @@
                 ${file.name}
               </a>
             </td>
-            <td>${file.size || "-"}</td>
-            <td>
-              <span class="tag">${file.type || "File"}</span>
-            </td>
+            <td>${file.size || "PDF"}</td>
+            <td><span class="tag">${file.type || "Sync link"}</span></td>
           </tr>
         `)
         .join("");
