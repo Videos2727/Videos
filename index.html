@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WACE School Vault – Year 11 & 12 Resources</title>
+  <title>WACE Vault – Year 11 & 12 Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <style>
     :root {
       --bg: #020617;
-      --bg-card: #0f172a;
+      --card: #0f172a;
       --accent: #38bdf8;
       --accent-soft: rgba(56, 189, 248, 0.15);
       --text: #e5e7eb;
@@ -17,9 +16,7 @@
       --radius: 16px;
       --shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
@@ -27,11 +24,9 @@
       background: radial-gradient(circle at top, #0b1120 0, #020617 55%, #000 100%);
       color: var(--text);
       display: flex;
-      align-items: stretch;
       justify-content: center;
       padding: 24px 12px;
     }
-
     .page {
       width: 100%;
       max-width: 1100px;
@@ -40,24 +35,15 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
       padding: 18px 18px 22px;
-      display: grid;
-      grid-template-columns: 1.1fr 1.6fr;
-      gap: 18px;
     }
-
-    @media (max-width: 850px) {
-      .page { grid-template-columns: 1fr; }
-    }
-
     header {
-      grid-column: 1 / -1;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
-
     .title {
       font-size: 1.6rem;
       font-weight: 700;
@@ -65,7 +51,6 @@
       align-items: center;
       gap: 8px;
     }
-
     .logo {
       width: 30px;
       height: 30px;
@@ -78,12 +63,11 @@
       color: #0b1120;
       box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
     }
-
     .subtitle {
       font-size: 0.9rem;
       color: var(--muted);
+      max-width: 650px;
     }
-
     .badge {
       font-size: 0.75rem;
       padding: 5px 10px;
@@ -95,139 +79,56 @@
       letter-spacing: 0.08em;
       text-align: center;
     }
-
-    .panel {
-      background: rgba(15, 23, 42, 0.9);
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .card {
+      background: var(--card);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      padding: 14px 14px 16px;
+      padding: 10px 12px 12px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
     }
-
-    .panel h2 {
-      font-size: 1rem;
+    .card h2 {
       margin: 0;
+      font-size: 1rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
-
-    .panel h2 span.icon { font-size: 1.1rem; }
-
-    .panel small {
-      color: var(--muted);
-      font-size: 0.78rem;
-    }
-
-    label {
+    .card h2 span.icon { font-size: 1.1rem; }
+    .card p {
+      margin: 0;
       font-size: 0.8rem;
       color: var(--muted);
-      display: block;
-      margin-bottom: 4px;
     }
-
-    select {
-      width: 100%;
-      background: #020617;
-      border-radius: 999px;
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 0.9rem;
-      outline: none;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
     }
-
-    select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    li + li {
+      margin-top: 4px;
     }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    @media (max-width: 600px) {
-      .row { grid-template-columns: 1fr; }
-    }
-
-    .hint {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.82rem;
-      margin-top: 6px;
-    }
-
-    thead {
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    th, td {
-      padding: 6px 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      text-align: left;
-      color: var(--muted);
-      font-weight: 500;
-      font-size: 0.8rem;
-    }
-
-    tbody tr:nth-child(odd) {
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    tbody tr:nth-child(even) {
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    tbody tr:hover {
-      background: rgba(56, 189, 248, 0.14);
-    }
-
-    .link {
+    a {
       color: var(--accent);
       text-decoration: none;
     }
-
-    .link:hover {
+    a:hover {
       text-decoration: underline;
     }
-
-    .muted { color: var(--muted); }
-    .small { font-size: 0.75rem; }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      padding: 3px 8px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
     footer {
-      grid-column: 1 / -1;
-      margin-top: 6px;
-      font-size: 0.72rem;
+      margin-top: 18px;
+      font-size: 0.75rem;
       color: var(--muted);
       text-align: center;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -237,608 +138,68 @@
       <div>
         <div class="title">
           <span class="logo">W</span>
-          <span>WACE Vault – Yr 11 & 12</span>
+          <span>WACE Vault – Yr 11 &amp; 12</span>
         </div>
         <div class="subtitle">
-          Browse WACE-style resources by subject, year level, and course type (ATAR / General). Files are hosted in Sync with public view links.
+          Click a subject and year level to open its resource page.
+          Inside each page, use the filter to sort by <strong>Textbooks, Assessments, Programs, PowerPoints, Notes, Videos</strong> or Other.
+          All files are stored in Sync and opened via public view links.
         </div>
       </div>
-      <div class="badge">
-        GitHub Pages (static) + Sync.com (storage)
-      </div>
+      <div class="badge">GitHub Pages + Sync.com</div>
     </header>
 
-    <!-- LEFT: controls -->
-    <section class="panel">
-      <h2>
-        <span class="icon">📁</span>
-        <span>Browse resources</span>
-      </h2>
-      <small>
-        Select a WACE subject, year level (11 or 12) and course type
-        (ATAR / General) to view resources. Each file opens from a Sync link.
-      </small>
+    <div class="grid">
+      <!-- Chemistry -->
+      <section class="card">
+        <h2><span class="icon">🔬</span><span>Chemistry</span></h2>
+        <p>ATAR / General resources • Textbooks • Assessments • Notes • PowerPoints • Videos.</p>
+        <ul>
+          <li><a href="chemistry/y11/index.html">Year 11 Chemistry</a></li>
+          <li><a href="chemistry/y12/index.html">Year 12 Chemistry</a></li>
+        </ul>
+      </section>
 
-      <div class="row">
-        <div>
-          <label for="subjectSelect">Subject</label>
-          <select id="subjectSelect"></select>
-        </div>
-        <div>
-          <label for="yearSelect">Year level</label>
-          <select id="yearSelect"></select>
-        </div>
-      </div>
+      <!-- Human Biology -->
+      <section class="card">
+        <h2><span class="icon">🧠</span><span>Human Biology</span></h2>
+        <p>Course notes, revision booklets, programs, assessments, PowerPoints, and videos.</p>
+        <ul>
+          <li><a href="human_bio/y11/index.html">Year 11 Human Biology</a></li>
+          <li><a href="human_bio/y12/index.html">Year 12 Human Biology</a></li>
+        </ul>
+      </section>
 
-      <div>
-        <label for="categorySelect">Course type</label>
-        <select id="categorySelect"></select>
-      </div>
+      <!-- Mathematics (grouped) -->
+      <section class="card">
+        <h2><span class="icon">📐</span><span>Mathematics</span></h2>
+        <p>Applications, Methods, Specialist, Essential • tests, exams, revision, notes, PowerPoints.</p>
+        <ul>
+          <li><a href="maths/y11/index.html">Year 11 Mathematics</a></li>
+          <li><a href="maths/y12/index.html">Year 12 Mathematics</a></li>
+        </ul>
+      </section>
 
-      <p class="hint">
-        To add a resource: create a public view link in Sync, then paste it into
-        the <code>VAULT_DATA</code> object below as the <code>path</code> for that subject/year/course type.
-      </p>
-    </section>
+      <!-- Physics -->
+      <section class="card">
+        <h2><span class="icon">⚛️</span><span>Physics</span></h2>
+        <p>Forces, motion, fields, waves • ATAR-style questions, notes, assessments, videos.</p>
+        <ul>
+          <li><a href="physics/y11/index.html">Year 11 Physics</a></li>
+          <li><a href="physics/y12/index.html">Year 12 Physics</a></li>
+        </ul>
+      </section>
 
-    <!-- RIGHT: file list -->
-    <section class="panel">
-      <h2>
-        <span class="icon">📚</span>
-        <span>Files</span>
-      </h2>
-      <div class="small muted" id="currentPathLabel">No subject selected yet.</div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th style="width: 100px;">Format</th>
-            <th style="width: 80px;">Type</th>
-          </tr>
-        </thead>
-        <tbody id="fileTableBody">
-          <tr>
-            <td colspan="3" class="muted small">
-              Choose a subject, year and course type to see available Sync links.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      <!-- You can duplicate this pattern for more subjects:
+           e.g. Biology, Psychology, English, AIT, etc.
+           Just create matching folders like `biology/y11/index.html` -->
+    </div>
 
     <footer>
-      Static vault generated on the client using a simple JavaScript manifest.
-      Host this file on <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>,
-      store PDFs in Sync.com, and paste public links into <code>VAULT_DATA</code>.
+      Each subject/year page includes category filters (Textbooks, Assessments, Programs, PowerPoints, Notes, Videos, Other).<br />
+      To add or remove resources, edit the subject’s own <code>index.html</code> file
+      (e.g. <code>chemistry/y12/index.html</code>) and paste your Sync public links into the tables.
     </footer>
   </div>
-
-  <script>
-    /************************************************************
-     * VAULT_DATA
-     * ----------
-     * Structure:
-     *   Subject → Year → Course type (ATAR / General) → [ files ]
-     * Each "path" should be a public Sync link (view-only).
-     ************************************************************/
-
-    const VAULT_DATA = {
-      "English": {
-        "Year 11": {
-          "ATAR": [
-            {
-              name: "English Y11 ATAR – Course Outline",
-              path: "https://YOUR_SYNC_LINK/english_y11_atar_course_outline.pdf",
-              size: "PDF",
-              type: "Sync link"
-            },
-            {
-              name: "English Y11 ATAR – Assessment Package",
-              path: "https://YOUR_SYNC_LINK/english_y11_atar_assessment_package.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": [
-            {
-              name: "English Y11 General – Sample Assessments",
-              path: "https://YOUR_SYNC_LINK/english_y11_general_assessments.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ]
-        },
-        "Year 12": {
-          "ATAR": [
-            {
-              name: "English Y12 ATAR – ATAR Practice Exams",
-              path: "https://YOUR_SYNC_LINK/english_y12_atar_practice_exams.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": [
-            {
-              name: "English Y12 General – Revision Booklet",
-              path: "https://YOUR_SYNC_LINK/english_y12_general_revision_booklet.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ]
-        }
-      },
-
-      "Mathematics Applications": {
-        "Year 11": {
-          "ATAR": [
-            {
-              name: "Maths Applications Y11 ATAR – Topic Tests",
-              path: "https://YOUR_SYNC_LINK/maths_app_y11_atar_topic_tests.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [
-            {
-              name: "Maths Applications Y12 ATAR – Exam Pack",
-              path: "https://YOUR_SYNC_LINK/maths_app_y12_atar_exam_pack.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": []
-        }
-      },
-
-      "Mathematics Methods": {
-        "Year 11": {
-          "ATAR": [
-            {
-              name: "Maths Methods Y11 ATAR – Problem Set Booklet",
-              path: "https://YOUR_SYNC_LINK/maths_methods_y11_atar_problem_sets.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [
-            {
-              name: "Maths Methods Y12 ATAR – Practice Exams",
-              path: "https://YOUR_SYNC_LINK/maths_methods_y12_atar_practice_exams.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": []
-        }
-      },
-
-      "Mathematics Specialist": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Mathematics Essential": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Biology": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Human Biology": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [
-            {
-              name: "Human Biology Y12 ATAR – ATF Revision Series Units 3 & 4",
-              path: "https://YOUR_SYNC_LINK/hb_y12_atar_atf_revision_3_4.pdf",
-              size: "PDF",
-              type: "Sync link"
-            },
-            {
-              name: "Human Biology Y12 ATAR – Practice Exams",
-              path: "https://YOUR_SYNC_LINK/hb_y12_atar_practice_exams.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": []
-        }
-      },
-
-      "Chemistry": {
-        "Year 11": {
-          "ATAR": [
-            {
-              name: "Chemistry Y11 ATAR – Topic Tests",
-              path: "https://YOUR_SYNC_LINK/chem_y11_atar_topic_tests.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [
-            {
-              name: "Chemistry Y12 ATAR – ATF Revision Series Units 3 & 4",
-              path: "https://YOUR_SYNC_LINK/chem_y12_atar_atf_revision_3_4.pdf",
-              size: "PDF",
-              type: "Sync link"
-            },
-            {
-              name: "Chemistry Y12 ATAR – WACE-style Exam Pack",
-              path: "https://YOUR_SYNC_LINK/chem_y12_atar_exam_pack.pdf",
-              size: "PDF",
-              type: "Sync link"
-            }
-          ],
-          "General": []
-        }
-      },
-
-      "Physics": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Psychology": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Earth and Environmental Science": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Modern History": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Ancient History": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Geography": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Economics": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Politics and Law": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Health Studies": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Physical Education Studies": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Applied Information Technology": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Computer Science": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Accounting and Finance": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Business Management and Enterprise": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Children, Family and the Community": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Food Science and Technology": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Engineering Studies": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Visual Arts": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Drama": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Dance": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      },
-
-      "Media Production and Analysis": {
-        "Year 11": {
-          "ATAR": [],
-          "General": []
-        },
-        "Year 12": {
-          "ATAR": [],
-          "General": []
-        }
-      }
-    };
-
-    /************************************************************
-     * UI LOGIC
-     ************************************************************/
-
-    const subjectSelect = document.getElementById("subjectSelect");
-    const yearSelect = document.getElementById("yearSelect");
-    const categorySelect = document.getElementById("categorySelect");
-    const fileTableBody = document.getElementById("fileTableBody");
-    const currentPathLabel = document.getElementById("currentPathLabel");
-
-    function initSubjects() {
-      const subjects = Object.keys(VAULT_DATA).sort();
-      if (subjects.length === 0) {
-        subjectSelect.innerHTML = "<option>No subjects defined</option>";
-        return;
-      }
-      subjectSelect.innerHTML = subjects
-        .map((s, i) => `<option value="${s}" ${i === 0 ? "selected" : ""}>${s}</option>`)
-        .join("");
-    }
-
-    function initYears() {
-      const subject = subjectSelect.value;
-      const yearsObj = VAULT_DATA[subject] || {};
-      const years = Object.keys(yearsObj).sort();
-      yearSelect.innerHTML = years
-        .map((y, i) => `<option value="${y}" ${i === 0 ? "selected" : ""}>${y}</option>`)
-        .join("");
-    }
-
-    function initCategories() {
-      const subject = subjectSelect.value;
-      const year = yearSelect.value;
-      const categoriesObj = VAULT_DATA[subject]?.[year] || {};
-      const categories = Object.keys(categoriesObj);
-      if (!categories.length) {
-        categorySelect.innerHTML = `<option value="">(No course types)</option>`;
-        return;
-      }
-      categorySelect.innerHTML = categories
-        .map((c, i) => `<option value="${c}" ${i === 0 ? "selected" : ""}>${c}</option>`)
-        .join("");
-    }
-
-    function renderFiles() {
-      const subject = subjectSelect.value;
-      const year = yearSelect.value;
-      const category = categorySelect.value;
-
-      const files = VAULT_DATA[subject]?.[year]?.[category] || [];
-
-      currentPathLabel.textContent =
-        files.length
-          ? `${subject} → ${year} → ${category} (${files.length} resource${files.length === 1 ? "" : "s"})`
-          : `No Sync links defined yet for ${subject} / ${year} / ${category}.`;
-
-      if (!files.length) {
-        fileTableBody.innerHTML = `
-          <tr>
-            <td colspan="3" class="muted small">
-              No files defined here yet. Create a Sync public link and add an entry to <code>VAULT_DATA</code>.
-            </td>
-          </tr>
-        `;
-        return;
-      }
-
-      fileTableBody.innerHTML = files
-        .map(file => `
-          <tr>
-            <td>
-              <a class="link" href="${file.path}" target="_blank" rel="noopener noreferrer">
-                ${file.name}
-              </a>
-            </td>
-            <td>${file.size || "PDF"}</td>
-            <td><span class="tag">${file.type || "Sync link"}</span></td>
-          </tr>
-        `)
-        .join("");
-    }
-
-    subjectSelect.addEventListener("change", () => {
-      initYears();
-      initCategories();
-      renderFiles();
-    });
-
-    yearSelect.addEventListener("change", () => {
-      initCategories();
-      renderFiles();
-    });
-
-    categorySelect.addEventListener("change", renderFiles);
-
-    // Kick off
-    initSubjects();
-    initYears();
-    initCategories();
-    renderFiles();
-  </script>
 </body>
 </html>
