@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AI Revision Tutor</title>
+  <title>School Vault – Resources</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
@@ -14,20 +14,16 @@
       --text: #e5e7eb;
       --muted: #9ca3af;
       --border: #1f2937;
-      --danger: #fb7185;
-      --radius: 14px;
+      --radius: 16px;
       --shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #0b1120 0, #020617 55%, #000 100%);
       color: var(--text);
       display: flex;
@@ -36,25 +32,21 @@
       padding: 24px 12px;
     }
 
-    .app {
+    .page {
       width: 100%;
-      max-width: 1000px;
-      background: linear-gradient(135deg,
-        rgba(15, 23, 42, 0.98),
-        rgba(15, 23, 42, 0.96));
-      border-radius: 22px;
+      max-width: 1100px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
+      border-radius: 24px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      padding: 20px 20px 22px;
+      padding: 18px 18px 22px;
       display: grid;
-      grid-template-columns: 1.1fr 1.4fr;
+      grid-template-columns: 1.1fr 1.6fr;
       gap: 18px;
     }
 
     @media (max-width: 850px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
+      .page { grid-template-columns: 1fr; }
     }
 
     header {
@@ -63,7 +55,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
 
     .title {
@@ -74,12 +66,11 @@
       gap: 8px;
     }
 
-    .title span.logo {
+    .logo {
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background:
-        conic-gradient(from 210deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
+      background: conic-gradient(from 210deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -122,9 +113,7 @@
       gap: 8px;
     }
 
-    .panel h2 span.icon {
-      font-size: 1.1rem;
-    }
+    .panel h2 span.icon { font-size: 1.1rem; }
 
     .panel small {
       color: var(--muted);
@@ -138,7 +127,7 @@
       margin-bottom: 4px;
     }
 
-    select, textarea {
+    select {
       width: 100%;
       background: #020617;
       border-radius: 999px;
@@ -149,13 +138,7 @@
       outline: none;
     }
 
-    textarea {
-      border-radius: 10px;
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    select:focus, textarea:focus {
+    select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
     }
@@ -167,108 +150,70 @@
     }
 
     @media (max-width: 600px) {
-      .row {
-        grid-template-columns: 1fr;
-      }
+      .row { grid-template-columns: 1fr; }
     }
 
-    button {
-      border-radius: 999px;
-      border: none;
-      padding: 8px 14px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    button.primary {
-      background: linear-gradient(135deg, #38bdf8, #6366f1);
-      color: #0b1120;
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.5);
-    }
-
-    button.primary:active {
-      transform: translateY(1px);
-      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.6);
-    }
-
-    button.secondary {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid var(--border);
+    .hint {
+      font-size: 0.75rem;
       color: var(--muted);
     }
 
-    button[disabled] {
-      opacity: 0.5;
-      cursor: default;
-      box-shadow: none;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 6px;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
+    thead {
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    th, td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      text-align: left;
       color: var(--muted);
-    }
-
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #4ade80;
-      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
-    }
-
-    .question-box, .answer-box {
-      background: rgba(2, 6, 23, 0.9);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 10px;
-      font-size: 0.9rem;
-    }
-
-    .question-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 5px;
-    }
-
-    .question-topic {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .question-text {
-      white-space: pre-wrap;
-      line-height: 1.4;
-    }
-
-    .answer-box {
-      max-height: 280px;
-      overflow: auto;
-      white-space: pre-wrap;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .error {
-      color: var(--danger);
+      font-weight: 500;
       font-size: 0.8rem;
     }
 
-    .small {
-      font-size: 0.75rem;
+    tbody tr:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    tbody tr:hover {
+      background: rgba(56, 189, 248, 0.14);
+    }
+
+    .link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .muted { color: var(--muted); }
+    .small { font-size: 0.75rem; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 0.72rem;
+      color: var(--muted);
     }
 
     footer {
@@ -286,29 +231,27 @@
   </style>
 </head>
 <body>
-  <div class="app">
+  <div class="page">
     <header>
       <div>
         <div class="title">
-          <span class="logo">Q</span>
-          <span>AI Revision Tutor</span>
+          <span class="logo">V</span>
+          <span>School Vault</span>
         </div>
         <div class="subtitle">
-          Students pick a subject & topic → get exam-style questions → request a full worked solution from AI.
+          Select your subject and year to view available PDFs and resources.
         </div>
       </div>
-      <div class="badge">
-        Prototype – plug into your own AI backend
-      </div>
+      <div class="badge">GitHub Pages • Static</div>
     </header>
 
-    <!-- LEFT: Controls / settings -->
+    <!-- LEFT: controls -->
     <section class="panel">
       <h2>
-        <span class="icon">🎯</span>
-        <span>Choose subject & topic</span>
+        <span class="icon">📁</span>
+        <span>Browse resources</span>
       </h2>
-      <small>Select what you want to revise, then generate a question.</small>
+      <small>Files are stored in this GitHub repo under <code>resources/&lt;subject&gt;/&lt;year&gt;/...</code></small>
 
       <div class="row">
         <div>
@@ -316,414 +259,210 @@
           <select id="subjectSelect"></select>
         </div>
         <div>
-          <label for="topicSelect">Topic</label>
-          <select id="topicSelect"></select>
+          <label for="yearSelect">Year level</label>
+          <select id="yearSelect"></select>
         </div>
       </div>
 
       <div>
-        <label for="difficultySelect">Difficulty (for AI explanation style)</label>
-        <select id="difficultySelect">
-          <option value="basic">Junior / foundation</option>
-          <option value="standard" selected>Standard / ATAR</option>
-          <option value="extension">Extension / high challenge</option>
-        </select>
+        <label for="categorySelect">Category (optional)</label>
+        <select id="categorySelect"></select>
       </div>
 
-      <div>
-        <label for="extraHint">Teacher notes (optional)</label>
-        <textarea id="extraHint" placeholder="E.g., 'Use WA ATAR marking style', 'Step-by-step with reasons', 'No calculator method', etc."></textarea>
-      </div>
-
-      <div style="display:flex;gap:8px;align-items:center;margin-top:4px;">
-        <button id="newQuestionBtn" class="primary" type="button">
-          <span>Generate question</span> <span>📚</span>
-        </button>
-        <button id="nextQuestionBtn" class="secondary" type="button">
-          <span>Another question</span>
-        </button>
-      </div>
-
-      <div class="small muted">
-        Questions are stored locally in the browser as a simple bank.
-        The AI solution uses the exact text of the selected question.
-      </div>
+      <p class="hint">
+        To add more files: upload them into the matching <code>resources/...</code> folder in GitHub and then add an entry
+        into the JavaScript data below (no backend needed).
+      </p>
     </section>
 
-    <!-- RIGHT: Question + AI answer -->
+    <!-- RIGHT: file list -->
     <section class="panel">
       <h2>
-        <span class="icon">🧠</span>
-        <span>Exam question & AI worked solution</span>
+        <span class="icon">📚</span>
+        <span>Files</span>
       </h2>
+      <div class="small muted" id="currentPathLabel">No subject selected yet.</div>
 
-      <div class="question-box" id="questionBox">
-        <div class="question-header">
-          <div>
-            <strong id="questionTitle">No question generated yet</strong>
-            <div class="question-topic" id="questionMeta">
-              Choose a subject & topic, then click “Generate question”.
-            </div>
-          </div>
-          <span class="pill">
-            <span class="pill-dot"></span>
-            <span id="aiStatusLabel">AI idle</span>
-          </span>
-        </div>
-        <div class="question-text" id="questionText"></div>
-      </div>
-
-      <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
-        <button id="getSolutionBtn" class="primary" type="button" disabled>
-          <span>Get AI worked solution</span> <span>✨</span>
-        </button>
-        <button id="clearSolutionBtn" class="secondary" type="button">
-          Clear answer
-        </button>
-      </div>
-
-      <div class="answer-box" id="answerBox">
-        <span class="muted small">
-          AI solution will appear here. Ask it to show full working, reasons,
-          and marking-style answers.
-        </span>
-      </div>
-
-      <div id="errorBox" class="error" style="display:none;"></div>
-
-      <div class="small muted">
-        <strong>Important:</strong> This page expects an AI backend at
-        <code>/api/ai-solution</code>. GitHub Pages is static, so you’ll need:
-        <ul class="small">
-          <li>a separate server / serverless function that talks to OpenAI (or another AI), and</li>
-          <li>to keep your API keys on the server only – never inside this file.</li>
-        </ul>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th style="width: 90px;">Size</th>
+            <th style="width: 90px;">Type</th>
+          </tr>
+        </thead>
+        <tbody id="fileTableBody">
+          <tr>
+            <td colspan="3" class="muted small">
+              Choose a subject and year to see available resources.
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <footer>
-      Made as a template – customise the question bank and plug into any AI service.
-      You can store questions per syllabus (e.g. WA ATAR, GCSE, IB, etc).
+      Static “vault” generated on the client using a simple JavaScript manifest.
+      Host on <a href="https://pages.github.com" target="_blank">GitHub Pages</a> and update the data as you add files.
     </footer>
   </div>
 
   <script>
-    /*****************************************************
-     * 1. QUESTION BANK
-     * ---------------------------------------------------
-     * Add / edit subjects, topics, and questions here.
-     * Each question can include a "marks" value and an
-     * optional "hint" that is sent to the AI.
-     *****************************************************/
+    /************************************************************
+     * DATA: describe your resources here
+     * -----------------------------------
+     * "path" should match the actual file path in your repo.
+     * Example: resources/human_bio/y12/textbooks/ATF_HB_Rev_Series.pdf
+     ************************************************************/
 
-    const QUESTION_BANK = {
-      "Mathematics": {
-        "Linear Equations": [
-          {
-            text: "Solve the equation: 3(2x - 5) = 4x + 7. Show all working.",
-            marks: 3
-          },
-          {
-            text: "The perimeter of a rectangle is 42 cm. The length is twice the width. Let the width be w cm.\n\n(a) Write an equation in terms of w.\n(b) Solve your equation to find the width and length.\n(c) Hence, find the area of the rectangle.",
-            marks: 5
-          }
-        ],
-        "Simultaneous Equations": [
-          {
-            text: "Solve the system of equations using any method:\n2x + 3y = 17\n4x - y = 5",
-            marks: 4
-          },
-          {
-            text: "Tickets for a concert cost $12 for students and $18 for adults. A total of 120 tickets were sold, raising $1776.\n\n(a) Let s be the number of student tickets and a be the number of adult tickets. Write two simultaneous equations.\n(b) Solve to find s and a.",
-            marks: 5
-          }
-        ],
-        "Quadratic Equations": [
-          {
-            text: "Solve the equation x^2 - 5x + 6 = 0 by factorisation.",
-            marks: 3
-          },
-          {
-            text: "A ball is thrown upwards. Its height above the ground after t seconds is given by h(t) = -5t^2 + 20t + 1.\n\n(a) Find the height when t = 1 second.\n(b) Find the time when the ball hits the ground (h = 0). Give your answer correct to 2 decimal places.",
-            marks: 5
-          }
-        ]
+    const VAULT_DATA = {
+      "Human Biology": {
+        "Year 12": {
+          "Textbooks": [
+            {
+              name: "Academic Task Force – Human Biology ATAR Course Revision Series (Units 3 & 4)",
+              path: "resources/human_bio/y12/textbooks/HB_ATF_Rev_3_4.pdf",
+              size: "77 MB",
+              type: "PDF"
+            },
+            {
+              name: "Academic Task Force – Human Biology ATAR Course Textbook",
+              path: "resources/human_bio/y12/textbooks/HB_ATF_Textbook.pdf",
+              size: "65 MB",
+              type: "PDF"
+            }
+          ],
+          "Tests & Exams": [
+            {
+              name: "2023 ATAR Practice Exam – Human Biology Units 3 & 4",
+              path: "resources/human_bio/y12/exams/2023_HB_Practice_Exam.pdf",
+              size: "4.2 MB",
+              type: "PDF"
+            }
+          ]
+        }
       },
-      "Physics": {
-        "Forces & Motion": [
-          {
-            text: "A 5.0 kg box is pulled along a horizontal surface with a constant horizontal force of 20 N. The frictional force is 5 N.\n\n(a) Draw a labelled force diagram for the box.\n(b) Calculate the net force acting on the box.\n(c) Calculate the acceleration of the box.",
-            marks: 5
-          },
-          {
-            text: "A car accelerates uniformly from rest to a speed of 25 m/s in 10 s.\n\n(a) Calculate the acceleration.\n(b) Calculate the distance travelled in this time.\n(c) Sketch a velocity–time graph for the motion.",
-            marks: 5
-          }
-        ],
-        "Electricity": [
-          {
-            text: "A 12 V battery is connected across a resistor of 4.0 Ω.\n\n(a) Calculate the current in the resistor.\n(b) How much energy is transformed in the resistor in 2.0 minutes?",
-            marks: 4
-          },
-          {
-            text: "Two resistors of 3 Ω and 6 Ω are connected in series to a 12 V supply.\n\n(a) Calculate the total resistance.\n(b) Calculate the current in the circuit.\n(c) Calculate the voltage across each resistor.",
-            marks: 5
-          }
-        ]
-      },
+
       "Chemistry": {
-        "Stoichiometry": [
-          {
-            text: "Magnesium reacts with hydrochloric acid according to the equation:\nMg(s) + 2HCl(aq) → MgCl2(aq) + H2(g)\n\n(a) Calculate the number of moles of Mg in 4.80 g of magnesium.\n(b) Calculate the number of moles of HCl required to react with this amount of Mg.\n(c) Hence, calculate the volume of 0.50 mol/L HCl solution needed.",
-            marks: 6
-          },
-          {
-            text: "Nitrogen gas reacts with hydrogen gas to form ammonia according to the balanced equation:\nN2(g) + 3H2(g) → 2NH3(g)\n\nIf 10.0 mol of N2 reacts with excess H2:\n(a) How many moles of NH3 can form?\n(b) What mass of NH3 is produced? (M(NH3) = 17.0 g/mol)",
-            marks: 4
-          }
-        ],
-        "Acids & Bases": [
-          {
-            text: "Define the term 'weak acid' and explain how it differs from a strong acid of the same concentration, with reference to ionisation in water and conductivity.",
-            marks: 4
-          },
-          {
-            text: "A student titrates 25.0 mL of 0.10 mol/L HCl with a NaOH solution of unknown concentration. The average titre is 18.6 mL.\n\n(a) Write the balanced equation for the reaction.\n(b) Calculate the number of moles of HCl in the flask.\n(c) Calculate the concentration of the NaOH solution.",
-            marks: 5
-          }
-        ]
+        "Year 12": {
+          "Textbooks": [
+            {
+              name: "Academic Task Force – Chemistry ATAR Course Revision Series (Units 3 & 4)",
+              path: "resources/chemistry/y12/textbooks/Chem_ATF_Rev_3_4.pdf",
+              size: "80 MB",
+              type: "PDF"
+            }
+          ],
+          "Exams": [
+            {
+              name: "2022 ATAR Exam – Chemistry",
+              path: "resources/chemistry/y12/exams/2022_ATAR_Chem_Exam.pdf",
+              size: "3.8 MB",
+              type: "PDF"
+            }
+          ]
+        }
       }
     };
 
-    /*****************************************************
-     * 2. STATE & ELEMENTS
-     *****************************************************/
+    /************************************************************
+     * UI LOGIC
+     ************************************************************/
 
     const subjectSelect = document.getElementById("subjectSelect");
-    const topicSelect = document.getElementById("topicSelect");
-    const difficultySelect = document.getElementById("difficultySelect");
-    const extraHint = document.getElementById("extraHint");
+    const yearSelect = document.getElementById("yearSelect");
+    const categorySelect = document.getElementById("categorySelect");
+    const fileTableBody = document.getElementById("fileTableBody");
+    const currentPathLabel = document.getElementById("currentPathLabel");
 
-    const newQuestionBtn = document.getElementById("newQuestionBtn");
-    const nextQuestionBtn = document.getElementById("nextQuestionBtn");
-    const getSolutionBtn = document.getElementById("getSolutionBtn");
-    const clearSolutionBtn = document.getElementById("clearSolutionBtn");
-
-    const questionTitle = document.getElementById("questionTitle");
-    const questionMeta = document.getElementById("questionMeta");
-    const questionTextEl = document.getElementById("questionText");
-    const answerBox = document.getElementById("answerBox");
-    const errorBox = document.getElementById("errorBox");
-    const aiStatusLabel = document.getElementById("aiStatusLabel");
-
-    let currentSubject = null;
-    let currentTopic = null;
-    let currentQuestion = null;
-    let questionIndex = 0;
-    let isRequestInProgress = false;
-
-    /*****************************************************
-     * 3. INITIALISE DROPDOWNS
-     *****************************************************/
-
-    function initDropdowns() {
-      const subjects = Object.keys(QUESTION_BANK);
+    function initSubjects() {
+      const subjects = Object.keys(VAULT_DATA);
+      if (subjects.length === 0) {
+        subjectSelect.innerHTML = "<option>No subjects defined</option>";
+        return;
+      }
       subjectSelect.innerHTML = subjects
         .map((s, i) => `<option value="${s}" ${i === 0 ? "selected" : ""}>${s}</option>`)
         .join("");
-
-      currentSubject = subjectSelect.value;
-      updateTopics();
     }
 
-    function updateTopics() {
-      const topics = Object.keys(QUESTION_BANK[currentSubject] || {});
-      topicSelect.innerHTML = topics
-        .map((t, i) => `<option value="${t}" ${i === 0 ? "selected" : ""}>${t}</option>`)
+    function initYears() {
+      const subject = subjectSelect.value;
+      const yearsObj = VAULT_DATA[subject] || {};
+      const years = Object.keys(yearsObj);
+      yearSelect.innerHTML = years
+        .map((y, i) => `<option value="${y}" ${i === 0 ? "selected" : ""}>${y}</option>`)
         .join("");
-
-      currentTopic = topicSelect.value;
-      questionIndex = 0;
     }
 
-    /*****************************************************
-     * 4. QUESTION SELECTION
-     *****************************************************/
+    function initCategories() {
+      const subject = subjectSelect.value;
+      const year = yearSelect.value;
+      const categoriesObj = VAULT_DATA[subject]?.[year] || {};
+      const categories = Object.keys(categoriesObj);
+      categorySelect.innerHTML = categories.length
+        ? categories.map((c, i) => `<option value="${c}" ${i === 0 ? "selected" : ""}>${c}</option>`).join("")
+        : `<option value="">(No categories)</option>`;
+    }
 
-    function getNextQuestion() {
-      const bank = QUESTION_BANK[currentSubject]?.[currentTopic] || [];
-      if (bank.length === 0) {
-        currentQuestion = null;
-        questionTitle.textContent = "No questions defined for this topic yet.";
-        questionMeta.textContent = "Add more items to the QUESTION_BANK in the script.";
-        questionTextEl.textContent = "";
-        getSolutionBtn.disabled = true;
+    function renderFiles() {
+      const subject = subjectSelect.value;
+      const year = yearSelect.value;
+      const category = categorySelect.value;
+
+      const files = VAULT_DATA[subject]?.[year]?.[category] || [];
+
+      currentPathLabel.textContent =
+        files.length
+          ? `${subject} → ${year} → ${category} (${files.length} file${files.length === 1 ? "" : "s"})`
+          : `No files for ${subject} / ${year} / ${category} yet.`;
+
+      if (!files.length) {
+        fileTableBody.innerHTML = `
+          <tr>
+            <td colspan="3" class="muted small">
+              No files defined here yet. Add entries to VAULT_DATA in the script.
+            </td>
+          </tr>
+        `;
         return;
       }
 
-      // Simple “rotate through the list” logic
-      currentQuestion = bank[questionIndex % bank.length];
-      questionIndex++;
-
-      questionTitle.textContent = `${currentSubject} – ${currentTopic}`;
-      questionMeta.textContent = `Marks: ${currentQuestion.marks ?? "N/A"} | Question ${questionIndex} of ${bank.length}`;
-      questionTextEl.textContent = currentQuestion.text;
-      getSolutionBtn.disabled = false;
-      errorBox.style.display = "none";
-      answerBox.textContent = "";
-      aiStatusLabel.textContent = "AI idle";
+      fileTableBody.innerHTML = files
+        .map(file => `
+          <tr>
+            <td>
+              <a class="link" href="${file.path}" target="_blank" rel="noopener noreferrer">
+                ${file.name}
+              </a>
+            </td>
+            <td>${file.size || "-"}</td>
+            <td>
+              <span class="tag">${file.type || "File"}</span>
+            </td>
+          </tr>
+        `)
+        .join("");
     }
-
-    /*****************************************************
-     * 5. AI SOLUTION REQUEST (FRONT-END)
-     * ---------------------------------------------------
-     * This calls a placeholder backend endpoint `/api/ai-solution`.
-     * On GitHub Pages, this will NOT exist – you must create it on
-     * another service (e.g. Vercel / Cloudflare / your own server)
-     * and point the URL below to that.
-     *****************************************************/
-
-    async function requestAISolution() {
-      if (!currentQuestion || isRequestInProgress) return;
-
-      isRequestInProgress = true;
-      getSolutionBtn.disabled = true;
-      aiStatusLabel.textContent = "Calling AI…";
-      errorBox.style.display = "none";
-
-      const payload = {
-        subject: currentSubject,
-        topic: currentTopic,
-        difficulty: difficultySelect.value,
-        questionText: currentQuestion.text,
-        marks: currentQuestion.marks,
-        teacherNotes: extraHint.value.trim()
-      };
-
-      // Show something immediately
-      answerBox.textContent =
-        "Thinking… sending the question to your AI backend.\n\n" +
-        "If you haven't set that up yet, see the comment in the script near requestAISolution().";
-
-      try {
-        /***********************************************
-         * OPTION A – CALL YOUR OWN BACKEND
-         * ---------------------------------
-         * Replace `/api/ai-solution` with your server URL.
-         * Your server should:
-         *   - Accept this JSON payload
-         *   - Call OpenAI (or another AI) with a prompt like:
-         *       “You are a helpful teacher. Show full working, marks, and explanations”
-         *   - Return `{ answer: "full worked solution text" }`
-         ***********************************************/
-        const response = await fetch("/api/ai-solution", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-          throw new Error("Server error: " + response.status);
-        }
-
-        const data = await response.json();
-        const text = data.answer || "(No 'answer' field returned from backend.)";
-        answerBox.textContent = text;
-        aiStatusLabel.textContent = "AI answer ready";
-      } catch (err) {
-        console.error(err);
-        answerBox.textContent = "";
-        errorBox.textContent =
-          "Could not reach the AI backend. On GitHub Pages this is expected until you set up an API.";
-        errorBox.style.display = "block";
-        aiStatusLabel.textContent = "AI error";
-      } finally {
-        isRequestInProgress = false;
-        getSolutionBtn.disabled = false;
-      }
-    }
-
-    /*****************************************************
-     * 6. OPTIONAL – HOW YOUR BACKEND COULD LOOK (OpenAI)
-     * ---------------------------------------------------
-     * Example Node/Express server pseudocode (NOT run here):
-     *
-     * import express from "express";
-     * import OpenAI from "openai";
-     *
-     * const app = express();
-     * const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-     *
-     * app.use(express.json());
-     *
-     * app.post("/api/ai-solution", async (req, res) => {
-     *   const { subject, topic, difficulty, questionText, marks, teacherNotes } = req.body;
-     *
-     *   const level =
-     *     difficulty === "basic" ? "Explain as to a Year 7/8 student" :
-     *     difficulty === "extension" ? "Use high-level reasoning and extension style" :
-     *     "Explain clearly for a typical senior student";
-     *
-     *   const prompt = `
-     *   You are an expert teacher. Give a full, step-by-step worked solution
-     *   for the following exam-style question. Show all reasoning, formulas,
-     *   units, and a short examiner-style final statement.
-     *
-     *   Subject: ${subject}
-     *   Topic: ${topic}
-     *   Marks: ${marks ?? "not specified"}
-     *   Difficulty: ${difficulty}
-     *   Extra teacher notes: ${teacherNotes || "none"}
-     *
-     *   Question:
-     *   ${questionText}
-     *
-     *   Then, if relevant, give a brief mark breakdown (e.g. 1 mark for correct formula, etc.).
-     *   `;
-     *
-     *   const completion = await client.chat.completions.create({
-     *     model: "gpt-4.1-mini",
-     *     messages: [
-     *       { role: "system", content: level },
-     *       { role: "user", content: prompt }
-     *     ]
-     *   });
-     *
-     *   const answer = completion.choices[0].message.content;
-     *   res.json({ answer });
-     * });
-     *
-     * app.listen(3000);
-     *
-     *****************************************************/
-
-    /*****************************************************
-     * 7. EVENT HANDLERS
-     *****************************************************/
 
     subjectSelect.addEventListener("change", () => {
-      currentSubject = subjectSelect.value;
-      updateTopics();
+      initYears();
+      initCategories();
+      renderFiles();
     });
 
-    topicSelect.addEventListener("change", () => {
-      currentTopic = topicSelect.value;
-      questionIndex = 0;
+    yearSelect.addEventListener("change", () => {
+      initCategories();
+      renderFiles();
     });
 
-    newQuestionBtn.addEventListener("click", getNextQuestion);
-    nextQuestionBtn.addEventListener("click", getNextQuestion);
-
-    getSolutionBtn.addEventListener("click", requestAISolution);
-
-    clearSolutionBtn.addEventListener("click", () => {
-      answerBox.textContent = "";
-      errorBox.style.display = "none";
-      aiStatusLabel.textContent = "AI idle";
-    });
+    categorySelect.addEventListener("change", renderFiles);
 
     // Kick off
-    initDropdowns();
+    initSubjects();
+    initYears();
+    initCategories();
+    renderFiles();
   </script>
 </body>
 </html>
