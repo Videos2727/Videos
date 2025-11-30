@@ -2,25 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Pokémon Card Price Tracker (TCGdex Demo)</title>
+  <title>AI Revision Tutor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Simple styling -->
   <style>
     :root {
-      --bg: #060b10;
-      --bg-alt: #0f172a;
-      --card: #111827;
+      --bg: #020617;
+      --bg-card: #0f172a;
       --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.1);
+      --accent-soft: rgba(56, 189, 248, 0.15);
       --text: #e5e7eb;
       --muted: #9ca3af;
-      --danger: #fb7185;
-      --success: #4ade80;
       --border: #1f2937;
-      --radius-lg: 16px;
-      --radius-sm: 8px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
+      --danger: #fb7185;
+      --radius: 14px;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
     }
 
     * {
@@ -29,58 +25,67 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: radial-gradient(circle at top, #0b1220 0, #020617 55%, #000 100%);
-      color: var(--text);
       min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 55%, #000 100%);
+      color: var(--text);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 24px 12px;
     }
 
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
+    .app {
+      width: 100%;
+      max-width: 1000px;
+      background: linear-gradient(135deg,
+        rgba(15, 23, 42, 0.98),
+        rgba(15, 23, 42, 0.96));
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 20px 20px 22px;
+      display: grid;
+      grid-template-columns: 1.1fr 1.4fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 850px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
     }
 
     header {
+      grid-column: 1 / -1;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
     }
 
     .title {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .poke-ball {
-      width: 34px;
-      height: 34px;
+    .title span.logo {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background:
-        radial-gradient(circle at 30% 25%, #fff 0, #fff 35%, #e5e7eb 50%, transparent 51%),
-        radial-gradient(circle at 30% 75%, #ef4444 0, #ef4444 45%, transparent 46%);
-      border: 3px solid #111827;
-      box-shadow: 0 0 0 3px #000, 0 0 20px rgba(239, 68, 68, 0.7);
-      position: relative;
-    }
-
-    .poke-ball::before {
-      content: "";
-      position: absolute;
-      inset: 50%;
-      transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #e5e7eb;
-      border: 3px solid #111827;
-      box-shadow: 0 0 0 3px #000;
+        conic-gradient(from 210deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #0b1120;
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
     }
 
     .subtitle {
@@ -90,199 +95,167 @@
 
     .badge {
       font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 10px;
+      padding: 5px 10px;
       border-radius: 999px;
       background: var(--accent-soft);
       color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 5fr 4fr;
-      gap: 18px;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .panel {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
-      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius);
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      padding: 16px 18px;
-    }
-
-    .panel-header {
+      padding: 14px 14px 16px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
       gap: 10px;
-      margin-bottom: 12px;
     }
 
-    .panel-title {
+    .panel h2 {
       font-size: 1rem;
-      font-weight: 600;
+      margin: 0;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .panel-title span.icon {
+    .panel h2 span.icon {
       font-size: 1.1rem;
     }
 
-    .chip {
-      font-size: 0.7rem;
+    .panel small {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    select, textarea {
+      width: 100%;
+      background: #020617;
+      border-radius: 999px;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    textarea {
+      border-radius: 10px;
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #0b1120;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.5);
+    }
+
+    button.primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.6);
+    }
+
+    button.secondary {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    button[disabled] {
+      opacity: 0.5;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
       padding: 3px 8px;
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.7);
       color: var(--muted);
     }
 
-    .search-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
     }
 
-    .search-bar input {
-      flex: 1;
-      padding: 8px 10px;
-      border-radius: 999px;
+    .question-box, .answer-box {
+      background: rgba(2, 6, 23, 0.9);
+      border-radius: 10px;
       border: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text);
+      padding: 10px;
       font-size: 0.9rem;
-      outline: none;
     }
 
-    .search-bar input::placeholder {
-      color: #6b7280;
-    }
-
-    .search-bar button {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #38bdf8, #6366f1);
-      color: #0b1120;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .search-bar button:active {
-      transform: translateY(1px);
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
-    }
-
-    .search-meta {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 8px;
+    .question-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
+      margin-bottom: 5px;
     }
 
-    .search-meta span strong {
-      color: var(--accent);
-    }
-
-    .card-list {
-      max-height: 360px;
-      overflow: auto;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .card-row {
-      display: grid;
-      grid-template-columns: 56px 1.6fr 1fr 1fr;
-      gap: 6px;
-      align-items: center;
-      padding: 7px 10px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-
-    .card-row:nth-child(odd) {
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .card-row:nth-child(even) {
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .card-row:hover {
-      background: rgba(56, 189, 248, 0.12);
-    }
-
-    .card-row.selected {
-      background: rgba(56, 189, 248, 0.2);
-      border-left: 3px solid var(--accent);
-      padding-left: 7px;
-    }
-
-    .card-row img {
-      width: 46px;
-      height: 64px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid #111827;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
-    }
-
-    .card-name {
-      font-weight: 500;
-      color: #e5e7eb;
-    }
-
-    .card-price {
-      color: #e5e7eb;
-      text-align: right;
-    }
-
-    .card-change {
-      text-align: right;
-      font-weight: 500;
-    }
-
-    .change-pos {
-      color: var(--success);
-    }
-
-    .change-neg {
-      color: var(--danger);
-    }
-
-    .change-zero {
+    .question-topic {
+      font-size: 0.78rem;
       color: var(--muted);
+    }
+
+    .question-text {
+      white-space: pre-wrap;
+      line-height: 1.4;
+    }
+
+    .answer-box {
+      max-height: 280px;
+      overflow: auto;
+      white-space: pre-wrap;
     }
 
     .muted {
@@ -292,109 +265,15 @@
     .error {
       color: var(--danger);
       font-size: 0.8rem;
-      margin-top: 4px;
     }
 
-    .side-panel {
-      display: grid;
-      gap: 14px;
-    }
-
-    .mini-table {
-      max-height: 170px;
-      overflow: auto;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .mini-row {
-      display: grid;
-      grid-template-columns: 1.7fr 1fr;
-      padding: 6px 10px;
-      font-size: 0.78rem;
-      gap: 4px;
-      align-items: center;
-    }
-
-    .mini-row:nth-child(odd) {
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .mini-row:nth-child(even) {
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .mini-row span:nth-child(2) {
-      text-align: right;
-    }
-
-    .pill-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      margin-bottom: 4px;
-    }
-
-    .pill-heading span.label {
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+    .small {
       font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .pill-heading span.value {
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .chart-wrapper {
-      background: radial-gradient(circle at top left,
-        rgba(56, 189, 248, 0.15),
-        transparent 50%),
-        radial-gradient(circle at bottom right,
-        rgba(129, 140, 248, 0.2),
-        transparent 55%);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      padding: 12px;
-    }
-
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-      font-size: 0.8rem;
-    }
-
-    .chart-header .name {
-      font-weight: 600;
-    }
-
-    .chart-header .set {
-      color: var(--muted);
-    }
-
-    .chart-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
-
-    .chart-tag {
-      font-size: 0.7rem;
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--muted);
     }
 
     footer {
-      margin-top: 22px;
+      grid-column: 1 / -1;
+      margin-top: 6px;
       font-size: 0.72rem;
       color: var(--muted);
       text-align: center;
@@ -405,532 +284,446 @@
       text-decoration: none;
     }
   </style>
-
-  <!-- Chart.js CDN for the price graph -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-  <div class="page">
+  <div class="app">
     <header>
       <div>
         <div class="title">
-          <div class="poke-ball"></div>
-          <span>Pokémon Card Price Tracker</span>
+          <span class="logo">Q</span>
+          <span>AI Revision Tutor</span>
         </div>
         <div class="subtitle">
-          Live prices & simple trends using the free
-          <a href="https://tcgdex.dev/" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;text-decoration:none;">TCGdex API</a>.
+          Students pick a subject & topic → get exam-style questions → request a full worked solution from AI.
         </div>
       </div>
       <div class="badge">
-        <span class="badge-dot"></span>
-        Live market data (demo)
+        Prototype – plug into your own AI backend
       </div>
     </header>
 
-    <div class="layout">
-      <!-- LEFT: Search + full card list -->
-      <section class="panel">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span class="icon">🔎</span>
-            <span>Card Search & Live Snapshot</span>
-          </div>
-          <div class="chip">Browsing first batch only (demo)</div>
+    <!-- LEFT: Controls / settings -->
+    <section class="panel">
+      <h2>
+        <span class="icon">🎯</span>
+        <span>Choose subject & topic</span>
+      </h2>
+      <small>Select what you want to revise, then generate a question.</small>
+
+      <div class="row">
+        <div>
+          <label for="subjectSelect">Subject</label>
+          <select id="subjectSelect"></select>
         </div>
-
-        <div class="search-bar">
-          <input
-            id="searchInput"
-            type="text"
-            placeholder="Search by card name (e.g. Charizard, Pikachu)..."
-          />
-          <button id="searchBtn" type="button">
-            <span>Search</span>
-            <span>⏎</span>
-          </button>
+        <div>
+          <label for="topicSelect">Topic</label>
+          <select id="topicSelect"></select>
         </div>
+      </div>
 
-        <div class="search-meta">
-          <span id="searchSummary">Loading cards from API…</span>
-          <span id="lastUpdated"></span>
-        </div>
+      <div>
+        <label for="difficultySelect">Difficulty (for AI explanation style)</label>
+        <select id="difficultySelect">
+          <option value="basic">Junior / foundation</option>
+          <option value="standard" selected>Standard / ATAR</option>
+          <option value="extension">Extension / high challenge</option>
+        </select>
+      </div>
 
-        <div id="cardList" class="card-list"></div>
+      <div>
+        <label for="extraHint">Teacher notes (optional)</label>
+        <textarea id="extraHint" placeholder="E.g., 'Use WA ATAR marking style', 'Step-by-step with reasons', 'No calculator method', etc."></textarea>
+      </div>
 
-        <div id="mainError" class="error" style="display:none;"></div>
-      </section>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:4px;">
+        <button id="newQuestionBtn" class="primary" type="button">
+          <span>Generate question</span> <span>📚</span>
+        </button>
+        <button id="nextQuestionBtn" class="secondary" type="button">
+          <span>Another question</span>
+        </button>
+      </div>
 
-      <!-- RIGHT: Top movers + chart -->
-      <section class="side-panel">
-        <!-- Top movers -->
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span class="icon">📈</span>
-              <span>Top Movers (30-day approx.)</span>
-            </div>
-            <div class="chip">Cardmarket trend vs 30-day avg</div>
-          </div>
+      <div class="small muted">
+        Questions are stored locally in the browser as a simple bank.
+        The AI solution uses the exact text of the selected question.
+      </div>
+    </section>
 
-          <div class="pill-heading">
-            <span class="label">Top Gainers</span>
-            <span class="value" id="gainersCount">–</span>
-          </div>
-          <div id="gainersList" class="mini-table"></div>
+    <!-- RIGHT: Question + AI answer -->
+    <section class="panel">
+      <h2>
+        <span class="icon">🧠</span>
+        <span>Exam question & AI worked solution</span>
+      </h2>
 
-          <div class="pill-heading" style="margin-top:10px;">
-            <span class="label">Top Losers</span>
-            <span class="value" id="losersCount">–</span>
-          </div>
-          <div id="losersList" class="mini-table"></div>
-        </div>
-
-        <!-- Card detail + graph -->
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span class="icon">📊</span>
-              <span>Selected Card – Price Approximation</span>
-            </div>
-            <div class="chip">Demo graph (4 points)</div>
-          </div>
-
-          <div class="chart-wrapper">
-            <div class="chart-header">
-              <div>
-                <div class="name" id="chartName">Select a card…</div>
-                <div class="set" id="chartSet"></div>
-              </div>
-              <div class="card-price" style="min-width:90px;">
-                <div class="muted" style="font-size:0.7rem;">Approx. price</div>
-                <div id="chartPrice">–</div>
-              </div>
-            </div>
-
-            <div class="chart-tags" id="chartTags">
-              <span class="chart-tag">Waiting for selection</span>
-            </div>
-
-            <canvas id="priceChart" height="180"></canvas>
-
-            <div class="muted" style="font-size:0.7rem;margin-top:4px;">
-              This graph uses Cardmarket averages (avg30 → avg7 → avg1 → trend) as a
-              rough 30-day “shape” when available. It’s a visual demo, not precise
-              daily history.
+      <div class="question-box" id="questionBox">
+        <div class="question-header">
+          <div>
+            <strong id="questionTitle">No question generated yet</strong>
+            <div class="question-topic" id="questionMeta">
+              Choose a subject & topic, then click “Generate question”.
             </div>
           </div>
+          <span class="pill">
+            <span class="pill-dot"></span>
+            <span id="aiStatusLabel">AI idle</span>
+          </span>
         </div>
-      </section>
-    </div>
+        <div class="question-text" id="questionText"></div>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
+        <button id="getSolutionBtn" class="primary" type="button" disabled>
+          <span>Get AI worked solution</span> <span>✨</span>
+        </button>
+        <button id="clearSolutionBtn" class="secondary" type="button">
+          Clear answer
+        </button>
+      </div>
+
+      <div class="answer-box" id="answerBox">
+        <span class="muted small">
+          AI solution will appear here. Ask it to show full working, reasons,
+          and marking-style answers.
+        </span>
+      </div>
+
+      <div id="errorBox" class="error" style="display:none;"></div>
+
+      <div class="small muted">
+        <strong>Important:</strong> This page expects an AI backend at
+        <code>/api/ai-solution</code>. GitHub Pages is static, so you’ll need:
+        <ul class="small">
+          <li>a separate server / serverless function that talks to OpenAI (or another AI), and</li>
+          <li>to keep your API keys on the server only – never inside this file.</li>
+        </ul>
+      </div>
+    </section>
 
     <footer>
-      Built as a learning/demo project using
-      <a href="https://tcgdex.dev/" target="_blank" rel="noopener noreferrer">TCGdex</a>.
-      You can fork this page on GitHub and customise it however you like.
+      Made as a template – customise the question bank and plug into any AI service.
+      You can store questions per syllabus (e.g. WA ATAR, GCSE, IB, etc).
     </footer>
   </div>
 
   <script>
-    const API_BASE = "https://api.tcgdex.net/v2/en";
-    const BATCH_SIZE = 60; // how many cards to load in this demo
+    /*****************************************************
+     * 1. QUESTION BANK
+     * ---------------------------------------------------
+     * Add / edit subjects, topics, and questions here.
+     * Each question can include a "marks" value and an
+     * optional "hint" that is sent to the AI.
+     *****************************************************/
 
-    const cardListEl = document.getElementById("cardList");
-    const mainErrorEl = document.getElementById("mainError");
-    const searchInputEl = document.getElementById("searchInput");
-    const searchBtnEl = document.getElementById("searchBtn");
-    const searchSummaryEl = document.getElementById("searchSummary");
-    const lastUpdatedEl = document.getElementById("lastUpdated");
-    const gainersListEl = document.getElementById("gainersList");
-    const losersListEl = document.getElementById("losersList");
-    const gainersCountEl = document.getElementById("gainersCount");
-    const losersCountEl = document.getElementById("losersCount");
+    const QUESTION_BANK = {
+      "Mathematics": {
+        "Linear Equations": [
+          {
+            text: "Solve the equation: 3(2x - 5) = 4x + 7. Show all working.",
+            marks: 3
+          },
+          {
+            text: "The perimeter of a rectangle is 42 cm. The length is twice the width. Let the width be w cm.\n\n(a) Write an equation in terms of w.\n(b) Solve your equation to find the width and length.\n(c) Hence, find the area of the rectangle.",
+            marks: 5
+          }
+        ],
+        "Simultaneous Equations": [
+          {
+            text: "Solve the system of equations using any method:\n2x + 3y = 17\n4x - y = 5",
+            marks: 4
+          },
+          {
+            text: "Tickets for a concert cost $12 for students and $18 for adults. A total of 120 tickets were sold, raising $1776.\n\n(a) Let s be the number of student tickets and a be the number of adult tickets. Write two simultaneous equations.\n(b) Solve to find s and a.",
+            marks: 5
+          }
+        ],
+        "Quadratic Equations": [
+          {
+            text: "Solve the equation x^2 - 5x + 6 = 0 by factorisation.",
+            marks: 3
+          },
+          {
+            text: "A ball is thrown upwards. Its height above the ground after t seconds is given by h(t) = -5t^2 + 20t + 1.\n\n(a) Find the height when t = 1 second.\n(b) Find the time when the ball hits the ground (h = 0). Give your answer correct to 2 decimal places.",
+            marks: 5
+          }
+        ]
+      },
+      "Physics": {
+        "Forces & Motion": [
+          {
+            text: "A 5.0 kg box is pulled along a horizontal surface with a constant horizontal force of 20 N. The frictional force is 5 N.\n\n(a) Draw a labelled force diagram for the box.\n(b) Calculate the net force acting on the box.\n(c) Calculate the acceleration of the box.",
+            marks: 5
+          },
+          {
+            text: "A car accelerates uniformly from rest to a speed of 25 m/s in 10 s.\n\n(a) Calculate the acceleration.\n(b) Calculate the distance travelled in this time.\n(c) Sketch a velocity–time graph for the motion.",
+            marks: 5
+          }
+        ],
+        "Electricity": [
+          {
+            text: "A 12 V battery is connected across a resistor of 4.0 Ω.\n\n(a) Calculate the current in the resistor.\n(b) How much energy is transformed in the resistor in 2.0 minutes?",
+            marks: 4
+          },
+          {
+            text: "Two resistors of 3 Ω and 6 Ω are connected in series to a 12 V supply.\n\n(a) Calculate the total resistance.\n(b) Calculate the current in the circuit.\n(c) Calculate the voltage across each resistor.",
+            marks: 5
+          }
+        ]
+      },
+      "Chemistry": {
+        "Stoichiometry": [
+          {
+            text: "Magnesium reacts with hydrochloric acid according to the equation:\nMg(s) + 2HCl(aq) → MgCl2(aq) + H2(g)\n\n(a) Calculate the number of moles of Mg in 4.80 g of magnesium.\n(b) Calculate the number of moles of HCl required to react with this amount of Mg.\n(c) Hence, calculate the volume of 0.50 mol/L HCl solution needed.",
+            marks: 6
+          },
+          {
+            text: "Nitrogen gas reacts with hydrogen gas to form ammonia according to the balanced equation:\nN2(g) + 3H2(g) → 2NH3(g)\n\nIf 10.0 mol of N2 reacts with excess H2:\n(a) How many moles of NH3 can form?\n(b) What mass of NH3 is produced? (M(NH3) = 17.0 g/mol)",
+            marks: 4
+          }
+        ],
+        "Acids & Bases": [
+          {
+            text: "Define the term 'weak acid' and explain how it differs from a strong acid of the same concentration, with reference to ionisation in water and conductivity.",
+            marks: 4
+          },
+          {
+            text: "A student titrates 25.0 mL of 0.10 mol/L HCl with a NaOH solution of unknown concentration. The average titre is 18.6 mL.\n\n(a) Write the balanced equation for the reaction.\n(b) Calculate the number of moles of HCl in the flask.\n(c) Calculate the concentration of the NaOH solution.",
+            marks: 5
+          }
+        ]
+      }
+    };
 
-    const chartNameEl = document.getElementById("chartName");
-    const chartSetEl = document.getElementById("chartSet");
-    const chartPriceEl = document.getElementById("chartPrice");
-    const chartTagsEl = document.getElementById("chartTags");
+    /*****************************************************
+     * 2. STATE & ELEMENTS
+     *****************************************************/
 
-    let allCards = [];      // [{id, name, image, setName, price, change30d, pricingRaw}]
-    let filteredCards = []; // same structure, filtered by search
-    let selectedCardId = null;
-    let priceChart = null;
+    const subjectSelect = document.getElementById("subjectSelect");
+    const topicSelect = document.getElementById("topicSelect");
+    const difficultySelect = document.getElementById("difficultySelect");
+    const extraHint = document.getElementById("extraHint");
 
-    function formatMoney(value, currency = "EUR") {
-      if (value == null || Number.isNaN(value)) return "–";
-      const rounded = Math.round(value * 100) / 100;
-      const symbol = currency === "USD" ? "$" : "€";
-      return symbol + rounded.toFixed(2);
+    const newQuestionBtn = document.getElementById("newQuestionBtn");
+    const nextQuestionBtn = document.getElementById("nextQuestionBtn");
+    const getSolutionBtn = document.getElementById("getSolutionBtn");
+    const clearSolutionBtn = document.getElementById("clearSolutionBtn");
+
+    const questionTitle = document.getElementById("questionTitle");
+    const questionMeta = document.getElementById("questionMeta");
+    const questionTextEl = document.getElementById("questionText");
+    const answerBox = document.getElementById("answerBox");
+    const errorBox = document.getElementById("errorBox");
+    const aiStatusLabel = document.getElementById("aiStatusLabel");
+
+    let currentSubject = null;
+    let currentTopic = null;
+    let currentQuestion = null;
+    let questionIndex = 0;
+    let isRequestInProgress = false;
+
+    /*****************************************************
+     * 3. INITIALISE DROPDOWNS
+     *****************************************************/
+
+    function initDropdowns() {
+      const subjects = Object.keys(QUESTION_BANK);
+      subjectSelect.innerHTML = subjects
+        .map((s, i) => `<option value="${s}" ${i === 0 ? "selected" : ""}>${s}</option>`)
+        .join("");
+
+      currentSubject = subjectSelect.value;
+      updateTopics();
     }
 
-    function formatChange(value) {
-      if (value == null || Number.isNaN(value)) return { text: "–", cls: "change-zero" };
+    function updateTopics() {
+      const topics = Object.keys(QUESTION_BANK[currentSubject] || {});
+      topicSelect.innerHTML = topics
+        .map((t, i) => `<option value="${t}" ${i === 0 ? "selected" : ""}>${t}</option>`)
+        .join("");
 
-      const rounded = Math.round(value * 100) / 100;
-      const sign = rounded > 0 ? "+" : rounded < 0 ? "" : "";
-      const cls = rounded > 0 ? "change-pos" : (rounded < 0 ? "change-neg" : "change-zero");
-      return { text: sign + rounded.toFixed(2), cls };
+      currentTopic = topicSelect.value;
+      questionIndex = 0;
     }
 
-    function extractPriceInfo(card) {
-      const pricing = card.pricing || {};
-      const cm = pricing.cardmarket;
-      const tp = pricing.tcgplayer;
+    /*****************************************************
+     * 4. QUESTION SELECTION
+     *****************************************************/
 
-      let currency = "EUR";
-      let current = null;
-      let change30d = null;
-      let fieldsUsed = [];
-
-      if (cm) {
-        const { trend, avg, avg30 } = cm;
-        current = trend ?? avg ?? null;
-        if (trend != null && avg30 != null) {
-          change30d = trend - avg30; // positive = above 30-day avg
-          fieldsUsed.push("CM trend vs avg30");
-        } else if (trend != null) {
-          fieldsUsed.push("CM trend");
-        }
-      } else if (tp) {
-        // Try a few possible fields for TCGplayer
-        const market =
-          (tp.holo && tp.holo.marketPrice) ||
-          (tp.normal && tp.normal.marketPrice) ||
-          tp.market ||
-          null;
-        current = market;
-        currency = "USD";
-        // We don't assume historical fields exist here – so no change30d
-        if (market != null) {
-          fieldsUsed.push("TCGplayer market");
-        }
-      }
-
-      return { price: current, change30d, currency, pricingFields: fieldsUsed };
-    }
-
-    function buildCardRow(card) {
-      const row = document.createElement("div");
-      row.className = "card-row";
-      row.dataset.id = card.id;
-
-      const change = formatChange(card.change30d);
-
-      row.innerHTML = `
-        <div>
-          <img src="${card.image}" alt="${card.name}" loading="lazy" />
-        </div>
-        <div class="card-name">
-          ${card.name}
-          <div class="muted" style="font-size:0.7rem;">${card.setName || ""}</div>
-        </div>
-        <div class="card-price">
-          ${formatMoney(card.price, card.currency)}
-        </div>
-        <div class="card-change ${change.cls}">
-          ${change.text}
-        </div>
-      `;
-
-      row.addEventListener("click", () => {
-        selectCard(card.id);
-      });
-
-      return row;
-    }
-
-    function renderCardList() {
-      cardListEl.innerHTML = "";
-      filteredCards.forEach(card => {
-        const row = buildCardRow(card);
-        if (card.id === selectedCardId) {
-          row.classList.add("selected");
-        }
-        cardListEl.appendChild(row);
-      });
-
-      if (filteredCards.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "muted";
-        empty.style.padding = "10px";
-        empty.textContent = "No cards found. Try a different search.";
-        cardListEl.appendChild(empty);
-      }
-    }
-
-    function renderTopMovers() {
-      const cardsWithChange = allCards.filter(c => typeof c.change30d === "number" && !Number.isNaN(c.change30d));
-
-      const sortedDesc = [...cardsWithChange].sort((a, b) => b.change30d - a.change30d);
-      const sortedAsc = [...cardsWithChange].sort((a, b) => a.change30d - b.change30d);
-
-      const topGainers = sortedDesc.slice(0, 10);
-      const topLosers = sortedAsc.slice(0, 10);
-
-      gainersListEl.innerHTML = "";
-      losersListEl.innerHTML = "";
-
-      topGainers.forEach(card => {
-        const change = formatChange(card.change30d);
-        const row = document.createElement("div");
-        row.className = "mini-row";
-        row.innerHTML = `
-          <span>${card.name}</span>
-          <span class="${change.cls}">${change.text}</span>
-        `;
-        row.addEventListener("click", () => selectCard(card.id));
-        gainersListEl.appendChild(row);
-      });
-
-      topLosers.forEach(card => {
-        const change = formatChange(card.change30d);
-        const row = document.createElement("div");
-        row.className = "mini-row";
-        row.innerHTML = `
-          <span>${card.name}</span>
-          <span class="${change.cls}">${change.text}</span>
-        `;
-        row.addEventListener("click", () => selectCard(card.id));
-        losersListEl.appendChild(row);
-      });
-
-      gainersCountEl.textContent = cardsWithChange.length > 0 ? `${topGainers.length} shown` : "0";
-      losersCountEl.textContent = cardsWithChange.length > 0 ? `${topLosers.length} shown` : "0";
-    }
-
-    function getPseudoHistory(card) {
-      const pricing = card.pricingRaw || {};
-      const cm = pricing.cardmarket;
-      if (!cm) return null;
-
-      const points = [];
-      const labels = [];
-
-      if (typeof cm.avg30 === "number") {
-        labels.push("30d avg");
-        points.push(cm.avg30);
-      }
-      if (typeof cm.avg7 === "number") {
-        labels.push("7d avg");
-        points.push(cm.avg7);
-      }
-      if (typeof cm.avg1 === "number") {
-        labels.push("1d avg");
-        points.push(cm.avg1);
-      }
-      if (typeof cm.trend === "number") {
-        labels.push("Trend");
-        points.push(cm.trend);
-      }
-
-      if (points.length === 0) return null;
-
-      return { labels, points, unit: cm.unit || "EUR" };
-    }
-
-    function updateChart(card) {
-      chartNameEl.textContent = card.name;
-      chartSetEl.textContent = card.setName || "";
-      chartPriceEl.textContent = formatMoney(card.price, card.currency);
-
-      chartTagsEl.innerHTML = "";
-
-      if (card.pricingFields && card.pricingFields.length > 0) {
-        card.pricingFields.forEach(f => {
-          const tag = document.createElement("span");
-          tag.className = "chart-tag";
-          tag.textContent = f;
-          chartTagsEl.appendChild(tag);
-        });
-      } else {
-        const tag = document.createElement("span");
-        tag.className = "chart-tag";
-        tag.textContent = "No detailed pricing fields found";
-        chartTagsEl.appendChild(tag);
-      }
-
-      const history = getPseudoHistory(card);
-      const ctx = document.getElementById("priceChart").getContext("2d");
-
-      if (!history) {
-        // Clear chart
-        if (priceChart) {
-          priceChart.destroy();
-          priceChart = null;
-        }
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    function getNextQuestion() {
+      const bank = QUESTION_BANK[currentSubject]?.[currentTopic] || [];
+      if (bank.length === 0) {
+        currentQuestion = null;
+        questionTitle.textContent = "No questions defined for this topic yet.";
+        questionMeta.textContent = "Add more items to the QUESTION_BANK in the script.";
+        questionTextEl.textContent = "";
+        getSolutionBtn.disabled = true;
         return;
       }
 
-      const data = {
-        labels: history.labels,
-        datasets: [
-          {
-            label: "Cardmarket price (approx.)",
-            data: history.points,
-            tension: 0.35,
-            fill: true,
-          },
-        ],
+      // Simple “rotate through the list” logic
+      currentQuestion = bank[questionIndex % bank.length];
+      questionIndex++;
+
+      questionTitle.textContent = `${currentSubject} – ${currentTopic}`;
+      questionMeta.textContent = `Marks: ${currentQuestion.marks ?? "N/A"} | Question ${questionIndex} of ${bank.length}`;
+      questionTextEl.textContent = currentQuestion.text;
+      getSolutionBtn.disabled = false;
+      errorBox.style.display = "none";
+      answerBox.textContent = "";
+      aiStatusLabel.textContent = "AI idle";
+    }
+
+    /*****************************************************
+     * 5. AI SOLUTION REQUEST (FRONT-END)
+     * ---------------------------------------------------
+     * This calls a placeholder backend endpoint `/api/ai-solution`.
+     * On GitHub Pages, this will NOT exist – you must create it on
+     * another service (e.g. Vercel / Cloudflare / your own server)
+     * and point the URL below to that.
+     *****************************************************/
+
+    async function requestAISolution() {
+      if (!currentQuestion || isRequestInProgress) return;
+
+      isRequestInProgress = true;
+      getSolutionBtn.disabled = true;
+      aiStatusLabel.textContent = "Calling AI…";
+      errorBox.style.display = "none";
+
+      const payload = {
+        subject: currentSubject,
+        topic: currentTopic,
+        difficulty: difficultySelect.value,
+        questionText: currentQuestion.text,
+        marks: currentQuestion.marks,
+        teacherNotes: extraHint.value.trim()
       };
 
-      const options = {
-        responsive: true,
-        plugins: {
-          legend: {
-            labels: {
-              color: "#cbd5f5",
-              font: { size: 10 },
-            },
-          },
-          tooltip: {
-            callbacks: {
-              label: (ctx) =>
-                `${history.unit === "EUR" ? "€" : "$"}${ctx.parsed.y.toFixed(2)}`,
-            },
-          },
-        },
-        scales: {
-          x: {
-            ticks: { color: "#9ca3af", font: { size: 10 } },
-            grid: { color: "rgba(31, 41, 55, 0.7)" },
-          },
-          y: {
-            ticks: {
-              color: "#9ca3af",
-              font: { size: 10 },
-              callback: (v) =>
-                history.unit === "EUR"
-                  ? "€" + v.toFixed(2)
-                  : "$" + v.toFixed(2),
-            },
-            grid: { color: "rgba(31, 41, 55, 0.7)" },
-          },
-        },
-      };
+      // Show something immediately
+      answerBox.textContent =
+        "Thinking… sending the question to your AI backend.\n\n" +
+        "If you haven't set that up yet, see the comment in the script near requestAISolution().";
 
-      if (priceChart) {
-        priceChart.destroy();
-      }
-      priceChart = new Chart(ctx, {
-        type: "line",
-        data,
-        options,
-      });
-    }
-
-    function selectCard(cardId) {
-      selectedCardId = cardId;
-      const card = allCards.find(c => c.id === cardId);
-      if (!card) return;
-      updateChart(card);
-
-      // Update highlighting
-      [...cardListEl.querySelectorAll(".card-row")].forEach(row => {
-        row.classList.toggle("selected", row.dataset.id === cardId);
-      });
-    }
-
-    function applySearch() {
-      const term = searchInputEl.value.trim().toLowerCase();
-      if (!term) {
-        filteredCards = [...allCards];
-      } else {
-        filteredCards = allCards.filter(card =>
-          card.name.toLowerCase().includes(term)
-        );
-      }
-
-      searchSummaryEl.innerHTML =
-        term
-          ? `Showing <strong>${filteredCards.length}</strong> result(s) for "<strong>${term}</strong>"`
-          : `Showing <strong>${filteredCards.length}</strong> cards from first batch`;
-
-      renderCardList();
-    }
-
-    async function init() {
       try {
-        mainErrorEl.style.display = "none";
-        searchSummaryEl.textContent = "Loading cards from TCGdex…";
-
-        const res = await fetch(`${API_BASE}/cards?max=${BATCH_SIZE}`);
-        if (!res.ok) {
-          throw new Error("Failed to load card list (status " + res.status + ")");
-        }
-        const cardsBrief = await res.json(); // array of CardBrief
-        const limitedBrief = cardsBrief.slice(0, BATCH_SIZE);
-
-        // Fetch full details (pricing) for each card in parallel
-        const detailsPromises = limitedBrief.map(async brief => {
-          try {
-            const detailRes = await fetch(`${API_BASE}/cards/${brief.id}`);
-            if (!detailRes.ok) {
-              return null;
-            }
-            const card = await detailRes.json();
-
-            const { price, change30d, currency, pricingFields } = extractPriceInfo(card);
-            const setName = card.set && card.set.name ? card.set.name : "";
-
-            return {
-              id: card.id,
-              name: card.name,
-              image: card.image || brief.image,
-              setName,
-              price,
-              change30d,
-              currency,
-              pricingFields,
-              pricingRaw: card.pricing || {}
-            };
-          } catch (err) {
-            console.error("Error fetching card details for", brief.id, err);
-            return null;
-          }
+        /***********************************************
+         * OPTION A – CALL YOUR OWN BACKEND
+         * ---------------------------------
+         * Replace `/api/ai-solution` with your server URL.
+         * Your server should:
+         *   - Accept this JSON payload
+         *   - Call OpenAI (or another AI) with a prompt like:
+         *       “You are a helpful teacher. Show full working, marks, and explanations”
+         *   - Return `{ answer: "full worked solution text" }`
+         ***********************************************/
+        const response = await fetch("/api/ai-solution", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
         });
 
-        const detailedCards = (await Promise.all(detailsPromises)).filter(Boolean);
-        allCards = detailedCards;
-        filteredCards = [...allCards];
-
-        const now = new Date();
-        lastUpdatedEl.textContent =
-          "Updated " +
-          now.toLocaleTimeString(undefined, {
-            hour: "2-digit",
-            minute: "2-digit"
-          });
-
-        searchSummaryEl.innerHTML =
-          `Showing <strong>${filteredCards.length}</strong> cards from first batch`;
-
-        renderCardList();
-        renderTopMovers();
-
-        if (filteredCards.length > 0) {
-          selectCard(filteredCards[0].id);
+        if (!response.ok) {
+          throw new Error("Server error: " + response.status);
         }
+
+        const data = await response.json();
+        const text = data.answer || "(No 'answer' field returned from backend.)";
+        answerBox.textContent = text;
+        aiStatusLabel.textContent = "AI answer ready";
       } catch (err) {
         console.error(err);
-        mainErrorEl.textContent =
-          "Failed to load data from TCGdex. Please try refreshing later.";
-        mainErrorEl.style.display = "block";
-        searchSummaryEl.textContent = "Could not load cards.";
+        answerBox.textContent = "";
+        errorBox.textContent =
+          "Could not reach the AI backend. On GitHub Pages this is expected until you set up an API.";
+        errorBox.style.display = "block";
+        aiStatusLabel.textContent = "AI error";
+      } finally {
+        isRequestInProgress = false;
+        getSolutionBtn.disabled = false;
       }
     }
 
-    // Event listeners
-    searchBtnEl.addEventListener("click", applySearch);
-    searchInputEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        applySearch();
-      }
+    /*****************************************************
+     * 6. OPTIONAL – HOW YOUR BACKEND COULD LOOK (OpenAI)
+     * ---------------------------------------------------
+     * Example Node/Express server pseudocode (NOT run here):
+     *
+     * import express from "express";
+     * import OpenAI from "openai";
+     *
+     * const app = express();
+     * const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+     *
+     * app.use(express.json());
+     *
+     * app.post("/api/ai-solution", async (req, res) => {
+     *   const { subject, topic, difficulty, questionText, marks, teacherNotes } = req.body;
+     *
+     *   const level =
+     *     difficulty === "basic" ? "Explain as to a Year 7/8 student" :
+     *     difficulty === "extension" ? "Use high-level reasoning and extension style" :
+     *     "Explain clearly for a typical senior student";
+     *
+     *   const prompt = `
+     *   You are an expert teacher. Give a full, step-by-step worked solution
+     *   for the following exam-style question. Show all reasoning, formulas,
+     *   units, and a short examiner-style final statement.
+     *
+     *   Subject: ${subject}
+     *   Topic: ${topic}
+     *   Marks: ${marks ?? "not specified"}
+     *   Difficulty: ${difficulty}
+     *   Extra teacher notes: ${teacherNotes || "none"}
+     *
+     *   Question:
+     *   ${questionText}
+     *
+     *   Then, if relevant, give a brief mark breakdown (e.g. 1 mark for correct formula, etc.).
+     *   `;
+     *
+     *   const completion = await client.chat.completions.create({
+     *     model: "gpt-4.1-mini",
+     *     messages: [
+     *       { role: "system", content: level },
+     *       { role: "user", content: prompt }
+     *     ]
+     *   });
+     *
+     *   const answer = completion.choices[0].message.content;
+     *   res.json({ answer });
+     * });
+     *
+     * app.listen(3000);
+     *
+     *****************************************************/
+
+    /*****************************************************
+     * 7. EVENT HANDLERS
+     *****************************************************/
+
+    subjectSelect.addEventListener("change", () => {
+      currentSubject = subjectSelect.value;
+      updateTopics();
     });
 
-    // Kick everything off
-    init();
+    topicSelect.addEventListener("change", () => {
+      currentTopic = topicSelect.value;
+      questionIndex = 0;
+    });
+
+    newQuestionBtn.addEventListener("click", getNextQuestion);
+    nextQuestionBtn.addEventListener("click", getNextQuestion);
+
+    getSolutionBtn.addEventListener("click", requestAISolution);
+
+    clearSolutionBtn.addEventListener("click", () => {
+      answerBox.textContent = "";
+      errorBox.style.display = "none";
+      aiStatusLabel.textContent = "AI idle";
+    });
+
+    // Kick off
+    initDropdowns();
   </script>
 </body>
 </html>
-
