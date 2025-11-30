@@ -1,244 +1,936 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos - Kings Collection</title>
-    <style>
-        body {
-            background-color: #36393f;
-            color: #ffffff;
-            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <title>Pokémon Card Price Tracker (TCGdex Demo)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        nav {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            background-color: #333;
-            padding: 10px;
-        }
+  <!-- Simple styling -->
+  <style>
+    :root {
+      --bg: #060b10;
+      --bg-alt: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.1);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #fb7185;
+      --success: #4ade80;
+      --border: #1f2937;
+      --radius-lg: 16px;
+      --radius-sm: 8px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
+    }
 
-        nav .logo {
-            font-size: 24px;
-            margin-right: auto;
-            color: #fff;
-            display: flex;
-            align-items: center;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        nav .logo i {
-            margin-right: 10px;
-        }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #0b1220 0, #020617 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: auto;
-        }
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
 
-        .container {
-            display: flex;
-            width: 80%;
-            margin-top: 20px;
-            flex: 1;
-        }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
 
-        .content {
-            width: 60%;
-            padding: 20px;
-            background-color: #2f3136;
-            border-radius: 8px;
-        }
+    .title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .preview {
-            width: 40%;
-            padding: 20px;
-            background-color: #2f3136;
-            border-radius: 8px;
-        }
+    .poke-ball {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 25%, #fff 0, #fff 35%, #e5e7eb 50%, transparent 51%),
+        radial-gradient(circle at 30% 75%, #ef4444 0, #ef4444 45%, transparent 46%);
+      border: 3px solid #111827;
+      box-shadow: 0 0 0 3px #000, 0 0 20px rgba(239, 68, 68, 0.7);
+      position: relative;
+    }
 
-        #fileList {
-            list-style-type: none;
-            padding: 0;
-            width: 100%;
-        }
+    .poke-ball::before {
+      content: "";
+      position: absolute;
+      inset: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      border: 3px solid #111827;
+      box-shadow: 0 0 0 3px #000;
+    }
 
-        .file-item, .folder-item {
-            margin: 10px 0;
-        }
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
 
-        .file-item a, .folder-item > span, .folder-item > a {
-            color: #7289da;
-            text-decoration: none;
-            padding: 7px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
+    .badge {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .file-item a:hover, .folder-item > span:hover, .folder-item > a:hover {
-            background-color: #42454a;
-        }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
+    }
 
-        .folder-item ul {
-            list-style-type: none;
-            padding-left: 20px;
-            display: none;
-        }
+    .layout {
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 18px;
+    }
 
-        .folder-item ul.open {
-            display: block;
-        }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .folder-item i {
-            margin-right: 10px;
-        }
+    .panel {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 18px;
+    }
 
-        .file-item button {
-            background-color: #7289da;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
 
-        .file-item button:hover {
-            background-color: #5b6eae;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-title span.icon {
+      font-size: 1.1rem;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--muted);
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .search-bar input::placeholder {
+      color: #6b7280;
+    }
+
+    .search-bar button {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #0b1120;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .search-bar button:active {
+      transform: translateY(1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+    }
+
+    .search-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-meta span strong {
+      color: var(--accent);
+    }
+
+    .card-list {
+      max-height: 360px;
+      overflow: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .card-row {
+      display: grid;
+      grid-template-columns: 56px 1.6fr 1fr 1fr;
+      gap: 6px;
+      align-items: center;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .card-row:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .card-row:nth-child(even) {
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .card-row:hover {
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .card-row.selected {
+      background: rgba(56, 189, 248, 0.2);
+      border-left: 3px solid var(--accent);
+      padding-left: 7px;
+    }
+
+    .card-row img {
+      width: 46px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #111827;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-name {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .card-price {
+      color: #e5e7eb;
+      text-align: right;
+    }
+
+    .card-change {
+      text-align: right;
+      font-weight: 500;
+    }
+
+    .change-pos {
+      color: var(--success);
+    }
+
+    .change-neg {
+      color: var(--danger);
+    }
+
+    .change-zero {
+      color: var(--muted);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .error {
+      color: var(--danger);
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    .side-panel {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mini-table {
+      max-height: 170px;
+      overflow: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .mini-row {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .mini-row:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .mini-row:nth-child(even) {
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .mini-row span:nth-child(2) {
+      text-align: right;
+    }
+
+    .pill-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .pill-heading span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .pill-heading span.value {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .chart-wrapper {
+      background: radial-gradient(circle at top left,
+        rgba(56, 189, 248, 0.15),
+        transparent 50%),
+        radial-gradient(circle at bottom right,
+        rgba(129, 140, 248, 0.2),
+        transparent 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 12px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+    }
+
+    .chart-header .name {
+      font-weight: 600;
+    }
+
+    .chart-header .set {
+      color: var(--muted);
+    }
+
+    .chart-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .chart-tag {
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 22px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+
+  <!-- Chart.js CDN for the price graph -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-crown"></i>
-            <span>Kings Collection</span>
+  <div class="page">
+    <header>
+      <div>
+        <div class="title">
+          <div class="poke-ball"></div>
+          <span>Pokémon Card Price Tracker</span>
         </div>
-    </nav>
-    <div class="container">
-        <div class="content">
-            <h1>Videos</h1>
-            <ul id="fileList"></ul>
+        <div class="subtitle">
+          Live prices & simple trends using the free
+          <a href="https://tcgdex.dev/" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;text-decoration:none;">TCGdex API</a>.
         </div>
-        <div class="preview">
-            <iframe id="previewFrame" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Live market data (demo)
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- LEFT: Search + full card list -->
+      <section class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="icon">🔎</span>
+            <span>Card Search & Live Snapshot</span>
+          </div>
+          <div class="chip">Browsing first batch only (demo)</div>
         </div>
+
+        <div class="search-bar">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search by card name (e.g. Charizard, Pikachu)..."
+          />
+          <button id="searchBtn" type="button">
+            <span>Search</span>
+            <span>⏎</span>
+          </button>
+        </div>
+
+        <div class="search-meta">
+          <span id="searchSummary">Loading cards from API…</span>
+          <span id="lastUpdated"></span>
+        </div>
+
+        <div id="cardList" class="card-list"></div>
+
+        <div id="mainError" class="error" style="display:none;"></div>
+      </section>
+
+      <!-- RIGHT: Top movers + chart -->
+      <section class="side-panel">
+        <!-- Top movers -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="icon">📈</span>
+              <span>Top Movers (30-day approx.)</span>
+            </div>
+            <div class="chip">Cardmarket trend vs 30-day avg</div>
+          </div>
+
+          <div class="pill-heading">
+            <span class="label">Top Gainers</span>
+            <span class="value" id="gainersCount">–</span>
+          </div>
+          <div id="gainersList" class="mini-table"></div>
+
+          <div class="pill-heading" style="margin-top:10px;">
+            <span class="label">Top Losers</span>
+            <span class="value" id="losersCount">–</span>
+          </div>
+          <div id="losersList" class="mini-table"></div>
+        </div>
+
+        <!-- Card detail + graph -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="icon">📊</span>
+              <span>Selected Card – Price Approximation</span>
+            </div>
+            <div class="chip">Demo graph (4 points)</div>
+          </div>
+
+          <div class="chart-wrapper">
+            <div class="chart-header">
+              <div>
+                <div class="name" id="chartName">Select a card…</div>
+                <div class="set" id="chartSet"></div>
+              </div>
+              <div class="card-price" style="min-width:90px;">
+                <div class="muted" style="font-size:0.7rem;">Approx. price</div>
+                <div id="chartPrice">–</div>
+              </div>
+            </div>
+
+            <div class="chart-tags" id="chartTags">
+              <span class="chart-tag">Waiting for selection</span>
+            </div>
+
+            <canvas id="priceChart" height="180"></canvas>
+
+            <div class="muted" style="font-size:0.7rem;margin-top:4px;">
+              This graph uses Cardmarket averages (avg30 → avg7 → avg1 → trend) as a
+              rough 30-day “shape” when available. It’s a visual demo, not precise
+              daily history.
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+
     <footer>
-        King Private Limited
+      Built as a learning/demo project using
+      <a href="https://tcgdex.dev/" target="_blank" rel="noopener noreferrer">TCGdex</a>.
+      You can fork this page on GitHub and customise it however you like.
     </footer>
+  </div>
 
-    <script>
-        async function fetchFolderContents(folderUrl, parentList, path = '') {
-            try {
-                const response = await fetch(folderUrl, {
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
+  <script>
+    const API_BASE = "https://api.tcgdex.net/v2/en";
+    const BATCH_SIZE = 60; // how many cards to load in this demo
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+    const cardListEl = document.getElementById("cardList");
+    const mainErrorEl = document.getElementById("mainError");
+    const searchInputEl = document.getElementById("searchInput");
+    const searchBtnEl = document.getElementById("searchBtn");
+    const searchSummaryEl = document.getElementById("searchSummary");
+    const lastUpdatedEl = document.getElementById("lastUpdated");
+    const gainersListEl = document.getElementById("gainersList");
+    const losersListEl = document.getElementById("losersList");
+    const gainersCountEl = document.getElementById("gainersCount");
+    const losersCountEl = document.getElementById("losersCount");
 
-                const data = await response.json();
-                console.log('Data fetched from', folderUrl, data); // Debugging line
+    const chartNameEl = document.getElementById("chartName");
+    const chartSetEl = document.getElementById("chartSet");
+    const chartPriceEl = document.getElementById("chartPrice");
+    const chartTagsEl = document.getElementById("chartTags");
 
-                const files = data.filter(item => item.type === 'file');
-                const folders = data.filter(item => item.type === 'dir');
+    let allCards = [];      // [{id, name, image, setName, price, change30d, pricingRaw}]
+    let filteredCards = []; // same structure, filtered by search
+    let selectedCardId = null;
+    let priceChart = null;
 
-                files.forEach(file => {
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('file-item');
+    function formatMoney(value, currency = "EUR") {
+      if (value == null || Number.isNaN(value)) return "–";
+      const rounded = Math.round(value * 100) / 100;
+      const symbol = currency === "USD" ? "$" : "€";
+      return symbol + rounded.toFixed(2);
+    }
 
-                    const link = document.createElement('a');
-                    link.textContent = file.name;
-                    link.href = file.download_url;
-                    link.download = file.name;
+    function formatChange(value) {
+      if (value == null || Number.isNaN(value)) return { text: "–", cls: "change-zero" };
 
-                    // Add preview button
-                    const previewButton = document.createElement('button');
-                    previewButton.textContent = 'Preview';
-                    previewButton.onclick = () => previewFile(file.download_url);
+      const rounded = Math.round(value * 100) / 100;
+      const sign = rounded > 0 ? "+" : rounded < 0 ? "" : "";
+      const cls = rounded > 0 ? "change-pos" : (rounded < 0 ? "change-neg" : "change-zero");
+      return { text: sign + rounded.toFixed(2), cls };
+    }
 
-                    listItem.appendChild(link);
-                    listItem.appendChild(previewButton);
-                    parentList.appendChild(listItem);
-                });
+    function extractPriceInfo(card) {
+      const pricing = card.pricing || {};
+      const cm = pricing.cardmarket;
+      const tp = pricing.tcgplayer;
 
-                for (const folder of folders) {
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('folder-item');
+      let currency = "EUR";
+      let current = null;
+      let change30d = null;
+      let fieldsUsed = [];
 
-                    const folderName = document.createElement('span');
-                    folderName.innerHTML = `<i class="fas fa-folder"></i> ${folder.name}`;
-
-                    const nestedList = document.createElement('ul');
-
-                    folderName.addEventListener('click', async function () {
-                        if (nestedList.classList.contains('open')) {
-                            nestedList.classList.remove('open');
-                        } else {
-                            if (nestedList.childElementCount === 0) {
-                                await fetchFolderContents(folder.url, nestedList, path + '/' + folder.name);
-                            }
-                            nestedList.classList.add('open');
-                        }
-                    });
-
-                    const downloadLink = document.createElement('a');
-                    downloadLink.innerHTML = `<i class="fas fa-download"></i>`;
-                    downloadLink.href = `https://github.com/Assessments2727/Assessments/archive/refs/heads/main.zip`;
-                    downloadLink.download = `${path}/${folder.name}.zip`;
-                    downloadLink.title = "Download folder as zip";
-
-                    listItem.appendChild(folderName);
-                    listItem.appendChild(downloadLink);
-                    listItem.appendChild(nestedList);
-                    parentList.appendChild(listItem);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                alert('Error fetching data: ' + error.message);
-            }
+      if (cm) {
+        const { trend, avg, avg30 } = cm;
+        current = trend ?? avg ?? null;
+        if (trend != null && avg30 != null) {
+          change30d = trend - avg30; // positive = above 30-day avg
+          fieldsUsed.push("CM trend vs avg30");
+        } else if (trend != null) {
+          fieldsUsed.push("CM trend");
         }
-
-        async function previewFile(url) {
-            const previewFrame = document.getElementById('previewFrame');
-            const encodedUrl = encodeURIComponent(url);
-            let previewUrl = '';
-
-            if (url.endsWith('.pdf')) {
-                previewUrl = `https://drive.google.com/viewerng/viewer?embedded=true&url=${encodedUrl}`;
-            } else if (url.endsWith('.doc') || url.endsWith('.docx')) {
-                previewUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}`;
-            } else if (url.endsWith('.ppt') || url.endsWith('.pptx')) {
-                previewUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}`;
-            } else {
-                alert('File type not supported for preview.');
-                return;
-            }
-
-            previewFrame.src = previewUrl;
+      } else if (tp) {
+        // Try a few possible fields for TCGplayer
+        const market =
+          (tp.holo && tp.holo.marketPrice) ||
+          (tp.normal && tp.normal.marketPrice) ||
+          tp.market ||
+          null;
+        current = market;
+        currency = "USD";
+        // We don't assume historical fields exist here – so no change30d
+        if (market != null) {
+          fieldsUsed.push("TCGplayer market");
         }
+      }
 
-        (async function() {
-            const repoOwner = 'Videos2727';
-            const repoName = 'Videos';
-            const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents`;
-            await fetchFolderContents(apiUrl, document.getElementById('fileList'));
-        })();
-    </script>
+      return { price: current, change30d, currency, pricingFields: fieldsUsed };
+    }
+
+    function buildCardRow(card) {
+      const row = document.createElement("div");
+      row.className = "card-row";
+      row.dataset.id = card.id;
+
+      const change = formatChange(card.change30d);
+
+      row.innerHTML = `
+        <div>
+          <img src="${card.image}" alt="${card.name}" loading="lazy" />
+        </div>
+        <div class="card-name">
+          ${card.name}
+          <div class="muted" style="font-size:0.7rem;">${card.setName || ""}</div>
+        </div>
+        <div class="card-price">
+          ${formatMoney(card.price, card.currency)}
+        </div>
+        <div class="card-change ${change.cls}">
+          ${change.text}
+        </div>
+      `;
+
+      row.addEventListener("click", () => {
+        selectCard(card.id);
+      });
+
+      return row;
+    }
+
+    function renderCardList() {
+      cardListEl.innerHTML = "";
+      filteredCards.forEach(card => {
+        const row = buildCardRow(card);
+        if (card.id === selectedCardId) {
+          row.classList.add("selected");
+        }
+        cardListEl.appendChild(row);
+      });
+
+      if (filteredCards.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "muted";
+        empty.style.padding = "10px";
+        empty.textContent = "No cards found. Try a different search.";
+        cardListEl.appendChild(empty);
+      }
+    }
+
+    function renderTopMovers() {
+      const cardsWithChange = allCards.filter(c => typeof c.change30d === "number" && !Number.isNaN(c.change30d));
+
+      const sortedDesc = [...cardsWithChange].sort((a, b) => b.change30d - a.change30d);
+      const sortedAsc = [...cardsWithChange].sort((a, b) => a.change30d - b.change30d);
+
+      const topGainers = sortedDesc.slice(0, 10);
+      const topLosers = sortedAsc.slice(0, 10);
+
+      gainersListEl.innerHTML = "";
+      losersListEl.innerHTML = "";
+
+      topGainers.forEach(card => {
+        const change = formatChange(card.change30d);
+        const row = document.createElement("div");
+        row.className = "mini-row";
+        row.innerHTML = `
+          <span>${card.name}</span>
+          <span class="${change.cls}">${change.text}</span>
+        `;
+        row.addEventListener("click", () => selectCard(card.id));
+        gainersListEl.appendChild(row);
+      });
+
+      topLosers.forEach(card => {
+        const change = formatChange(card.change30d);
+        const row = document.createElement("div");
+        row.className = "mini-row";
+        row.innerHTML = `
+          <span>${card.name}</span>
+          <span class="${change.cls}">${change.text}</span>
+        `;
+        row.addEventListener("click", () => selectCard(card.id));
+        losersListEl.appendChild(row);
+      });
+
+      gainersCountEl.textContent = cardsWithChange.length > 0 ? `${topGainers.length} shown` : "0";
+      losersCountEl.textContent = cardsWithChange.length > 0 ? `${topLosers.length} shown` : "0";
+    }
+
+    function getPseudoHistory(card) {
+      const pricing = card.pricingRaw || {};
+      const cm = pricing.cardmarket;
+      if (!cm) return null;
+
+      const points = [];
+      const labels = [];
+
+      if (typeof cm.avg30 === "number") {
+        labels.push("30d avg");
+        points.push(cm.avg30);
+      }
+      if (typeof cm.avg7 === "number") {
+        labels.push("7d avg");
+        points.push(cm.avg7);
+      }
+      if (typeof cm.avg1 === "number") {
+        labels.push("1d avg");
+        points.push(cm.avg1);
+      }
+      if (typeof cm.trend === "number") {
+        labels.push("Trend");
+        points.push(cm.trend);
+      }
+
+      if (points.length === 0) return null;
+
+      return { labels, points, unit: cm.unit || "EUR" };
+    }
+
+    function updateChart(card) {
+      chartNameEl.textContent = card.name;
+      chartSetEl.textContent = card.setName || "";
+      chartPriceEl.textContent = formatMoney(card.price, card.currency);
+
+      chartTagsEl.innerHTML = "";
+
+      if (card.pricingFields && card.pricingFields.length > 0) {
+        card.pricingFields.forEach(f => {
+          const tag = document.createElement("span");
+          tag.className = "chart-tag";
+          tag.textContent = f;
+          chartTagsEl.appendChild(tag);
+        });
+      } else {
+        const tag = document.createElement("span");
+        tag.className = "chart-tag";
+        tag.textContent = "No detailed pricing fields found";
+        chartTagsEl.appendChild(tag);
+      }
+
+      const history = getPseudoHistory(card);
+      const ctx = document.getElementById("priceChart").getContext("2d");
+
+      if (!history) {
+        // Clear chart
+        if (priceChart) {
+          priceChart.destroy();
+          priceChart = null;
+        }
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        return;
+      }
+
+      const data = {
+        labels: history.labels,
+        datasets: [
+          {
+            label: "Cardmarket price (approx.)",
+            data: history.points,
+            tension: 0.35,
+            fill: true,
+          },
+        ],
+      };
+
+      const options = {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: "#cbd5f5",
+              font: { size: 10 },
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx) =>
+                `${history.unit === "EUR" ? "€" : "$"}${ctx.parsed.y.toFixed(2)}`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: { color: "#9ca3af", font: { size: 10 } },
+            grid: { color: "rgba(31, 41, 55, 0.7)" },
+          },
+          y: {
+            ticks: {
+              color: "#9ca3af",
+              font: { size: 10 },
+              callback: (v) =>
+                history.unit === "EUR"
+                  ? "€" + v.toFixed(2)
+                  : "$" + v.toFixed(2),
+            },
+            grid: { color: "rgba(31, 41, 55, 0.7)" },
+          },
+        },
+      };
+
+      if (priceChart) {
+        priceChart.destroy();
+      }
+      priceChart = new Chart(ctx, {
+        type: "line",
+        data,
+        options,
+      });
+    }
+
+    function selectCard(cardId) {
+      selectedCardId = cardId;
+      const card = allCards.find(c => c.id === cardId);
+      if (!card) return;
+      updateChart(card);
+
+      // Update highlighting
+      [...cardListEl.querySelectorAll(".card-row")].forEach(row => {
+        row.classList.toggle("selected", row.dataset.id === cardId);
+      });
+    }
+
+    function applySearch() {
+      const term = searchInputEl.value.trim().toLowerCase();
+      if (!term) {
+        filteredCards = [...allCards];
+      } else {
+        filteredCards = allCards.filter(card =>
+          card.name.toLowerCase().includes(term)
+        );
+      }
+
+      searchSummaryEl.innerHTML =
+        term
+          ? `Showing <strong>${filteredCards.length}</strong> result(s) for "<strong>${term}</strong>"`
+          : `Showing <strong>${filteredCards.length}</strong> cards from first batch`;
+
+      renderCardList();
+    }
+
+    async function init() {
+      try {
+        mainErrorEl.style.display = "none";
+        searchSummaryEl.textContent = "Loading cards from TCGdex…";
+
+        const res = await fetch(`${API_BASE}/cards?max=${BATCH_SIZE}`);
+        if (!res.ok) {
+          throw new Error("Failed to load card list (status " + res.status + ")");
+        }
+        const cardsBrief = await res.json(); // array of CardBrief
+        const limitedBrief = cardsBrief.slice(0, BATCH_SIZE);
+
+        // Fetch full details (pricing) for each card in parallel
+        const detailsPromises = limitedBrief.map(async brief => {
+          try {
+            const detailRes = await fetch(`${API_BASE}/cards/${brief.id}`);
+            if (!detailRes.ok) {
+              return null;
+            }
+            const card = await detailRes.json();
+
+            const { price, change30d, currency, pricingFields } = extractPriceInfo(card);
+            const setName = card.set && card.set.name ? card.set.name : "";
+
+            return {
+              id: card.id,
+              name: card.name,
+              image: card.image || brief.image,
+              setName,
+              price,
+              change30d,
+              currency,
+              pricingFields,
+              pricingRaw: card.pricing || {}
+            };
+          } catch (err) {
+            console.error("Error fetching card details for", brief.id, err);
+            return null;
+          }
+        });
+
+        const detailedCards = (await Promise.all(detailsPromises)).filter(Boolean);
+        allCards = detailedCards;
+        filteredCards = [...allCards];
+
+        const now = new Date();
+        lastUpdatedEl.textContent =
+          "Updated " +
+          now.toLocaleTimeString(undefined, {
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+
+        searchSummaryEl.innerHTML =
+          `Showing <strong>${filteredCards.length}</strong> cards from first batch`;
+
+        renderCardList();
+        renderTopMovers();
+
+        if (filteredCards.length > 0) {
+          selectCard(filteredCards[0].id);
+        }
+      } catch (err) {
+        console.error(err);
+        mainErrorEl.textContent =
+          "Failed to load data from TCGdex. Please try refreshing later.";
+        mainErrorEl.style.display = "block";
+        searchSummaryEl.textContent = "Could not load cards.";
+      }
+    }
+
+    // Event listeners
+    searchBtnEl.addEventListener("click", applySearch);
+    searchInputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        applySearch();
+      }
+    });
+
+    // Kick everything off
+    init();
+  </script>
 </body>
 </html>
+
