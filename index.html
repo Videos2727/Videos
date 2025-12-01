@@ -41,7 +41,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       flex-wrap: wrap;
     }
     .title {
@@ -79,12 +79,42 @@
       letter-spacing: 0.08em;
       text-align: center;
     }
+
+    /* ---------- ICON LEGEND ---------- */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin: 8px 0 14px;
+    }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .icon-pdf { color: #ef4444; }
+    .icon-doc { color: #3b82f6; }
+    .icon-ppt { color: #f97316; }
+    .icon-video { color: #a855f7; }
+    .icon-link { color: #22c55e; }
+
+    /* ---------- GRID ---------- */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
       margin-top: 8px;
     }
+
     .card {
       background: var(--card);
       border-radius: var(--radius);
@@ -94,6 +124,7 @@
       flex-direction: column;
       gap: 6px;
     }
+
     .card h2 {
       margin: 0;
       font-size: 1rem;
@@ -101,28 +132,41 @@
       align-items: center;
       gap: 6px;
     }
-    .card h2 span.icon { font-size: 1.1rem; }
+
     .card p {
       margin: 0;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
     }
+
+    .file-icons {
+      font-size: 0.85rem;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
       font-size: 0.85rem;
     }
+
     li + li {
       margin-top: 4px;
     }
+
     a {
       color: var(--accent);
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     footer {
       margin-top: 18px;
       font-size: 0.75rem;
@@ -141,64 +185,88 @@
           <span>WACE Vault – Yr 11 &amp; 12</span>
         </div>
         <div class="subtitle">
-          Click a subject and year level to open its resource page.
-          Inside each page, use the filter to sort by <strong>Textbooks, Assessments, Programs, PowerPoints, Notes, Videos</strong> or Other.
-          All files are stored in Sync and opened via public view links.
+          Click a subject and year level to open its resource page.  
+          Each subject page includes category filtering for Textbooks, Assessments, Programs, PowerPoints, Notes and Videos.
         </div>
       </div>
-      <div class="badge">GitHub Pages + Sync.com</div>
+      <div class="badge">GitHub Pages + Sync</div>
     </header>
 
+    <!-- ICON LEGEND -->
+    <div class="legend">
+      <span><span class="icon-pdf">📕</span> PDF</span>
+      <span><span class="icon-doc">📘</span> Word</span>
+      <span><span class="icon-ppt">📙</span> PowerPoint</span>
+      <span><span class="icon-video">🎬</span> Video</span>
+      <span><span class="icon-link">🔗</span> Link</span>
+    </div>
+
     <div class="grid">
-      <!-- Chemistry -->
+      <!-- CHEMISTRY -->
       <section class="card">
-        <h2><span class="icon">🔬</span><span>Chemistry</span></h2>
-        <p>ATAR / General resources • Textbooks • Assessments • Notes • PowerPoints • Videos.</p>
+        <h2>🔬 Chemistry</h2>
+        <p>ATAR / General Chemistry resources.</p>
+        <div class="file-icons">
+          <span class="icon-pdf">📕</span>
+          <span class="icon-doc">📘</span>
+          <span class="icon-ppt">📙</span>
+          <span class="icon-video">🎬</span>
+        </div>
         <ul>
           <li><a href="chemistry/y11/index.html">Year 11 Chemistry</a></li>
           <li><a href="chemistry/y12/index.html">Year 12 Chemistry</a></li>
         </ul>
       </section>
 
-      <!-- Human Biology -->
+      <!-- HUMAN BIOLOGY -->
       <section class="card">
-        <h2><span class="icon">🧠</span><span>Human Biology</span></h2>
-        <p>Course notes, revision booklets, programs, assessments, PowerPoints, and videos.</p>
+        <h2>🧠 Human Biology</h2>
+        <p>Revision, programs, assessments, videos.</p>
+        <div class="file-icons">
+          <span class="icon-pdf">📕</span>
+          <span class="icon-doc">📘</span>
+          <span class="icon-video">🎬</span>
+        </div>
         <ul>
           <li><a href="human_bio/y11/index.html">Year 11 Human Biology</a></li>
           <li><a href="human_bio/y12/index.html">Year 12 Human Biology</a></li>
         </ul>
       </section>
 
-      <!-- Mathematics (grouped) -->
+      <!-- MATHEMATICS -->
       <section class="card">
-        <h2><span class="icon">📐</span><span>Mathematics</span></h2>
-        <p>Applications, Methods, Specialist, Essential • tests, exams, revision, notes, PowerPoints.</p>
+        <h2>📐 Mathematics</h2>
+        <p>Applications, Methods, Specialist, Essential.</p>
+        <div class="file-icons">
+          <span class="icon-pdf">📕</span>
+          <span class="icon-ppt">📙</span>
+          <span class="icon-doc">📘</span>
+        </div>
         <ul>
           <li><a href="maths/y11/index.html">Year 11 Mathematics</a></li>
           <li><a href="maths/y12/index.html">Year 12 Mathematics</a></li>
         </ul>
       </section>
 
-      <!-- Physics -->
+      <!-- PHYSICS -->
       <section class="card">
-        <h2><span class="icon">⚛️</span><span>Physics</span></h2>
-        <p>Forces, motion, fields, waves • ATAR-style questions, notes, assessments, videos.</p>
+        <h2>⚛️ Physics</h2>
+        <p>Notes, exam questions, lesson slides, videos.</p>
+        <div class="file-icons">
+          <span class="icon-pdf">📕</span>
+          <span class="icon-video">🎬</span>
+          <span class="icon-ppt">📙</span>
+        </div>
         <ul>
           <li><a href="physics/y11/index.html">Year 11 Physics</a></li>
           <li><a href="physics/y12/index.html">Year 12 Physics</a></li>
         </ul>
       </section>
-
-      <!-- You can duplicate this pattern for more subjects:
-           e.g. Biology, Psychology, English, AIT, etc.
-           Just create matching folders like `biology/y11/index.html` -->
     </div>
 
     <footer>
-      Each subject/year page includes category filters (Textbooks, Assessments, Programs, PowerPoints, Notes, Videos, Other).<br />
-      To add or remove resources, edit the subject’s own <code>index.html</code> file
-      (e.g. <code>chemistry/y12/index.html</code>) and paste your Sync public links into the tables.
+      File icons indicate the types of resources available inside each subject page.<br>
+      Add links by editing the subject’s <code>index.html</code> file.
     </footer>
   </div>
 </body>
