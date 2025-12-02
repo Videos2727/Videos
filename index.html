@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WACE Vault – Year 11 & 12 Hub</title>
+  <title>Chemistry – Year 12 Resources</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -29,7 +29,7 @@
     }
     .page {
       width: 100%;
-      max-width: 1100px;
+      max-width: 900px;
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
       border-radius: 24px;
       border: 1px solid var(--border);
@@ -41,138 +41,110 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
     }
     .title {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .logo {
-      width: 30px;
-      height: 30px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: conic-gradient(from 210deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #0b1120;
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
     }
     .subtitle {
-      font-size: 0.9rem;
-      color: var(--muted);
-      max-width: 650px;
-    }
-    .badge {
-      font-size: 0.75rem;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.6);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      text-align: center;
-    }
-
-    /* ---------- ICON LEGEND ---------- */
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin: 8px 0 14px;
-    }
-
-    .legend span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 3px 8px;
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .icon-pdf { color: #ef4444; }
-    .icon-doc { color: #3b82f6; }
-    .icon-ppt { color: #f97316; }
-    .icon-video { color: #a855f7; }
-    .icon-link { color: #22c55e; }
-
-    /* ---------- GRID ---------- */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 10px 12px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .card h2 {
-      margin: 0;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .card p {
-      margin: 0;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .file-icons {
       font-size: 0.85rem;
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 2px;
+      color: var(--muted);
     }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      font-size: 0.85rem;
-    }
-
-    li + li {
-      margin-top: 4px;
-    }
-
     a {
       color: var(--accent);
       text-decoration: none;
     }
-
     a:hover {
       text-decoration: underline;
     }
-
+    label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    select {
+      width: 100%;
+      max-width: 260px;
+      background: #020617;
+      border-radius: 999px;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+    .filter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    th, td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+    tbody tr:nth-child(odd) { background: rgba(15, 23, 42, 0.9); }
+    tbody tr:nth-child(even) { background: rgba(15, 23, 42, 0.98); }
+    tbody tr:hover { background: rgba(56, 189, 248, 0.14); }
+    .tag {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .muted { color: var(--muted); }
+    .small { font-size: 0.75rem; }
     footer {
-      margin-top: 18px;
+      margin-top: 12px;
       font-size: 0.75rem;
       color: var(--muted);
       text-align: center;
-      line-height: 1.4;
+    }
+    h2.section-title {
+      font-size: 1rem;
+      margin: 12px 0 4px;
     }
   </style>
 </head>
@@ -181,93 +153,182 @@
     <header>
       <div>
         <div class="title">
-          <span class="logo">W</span>
-          <span>WACE Vault – Yr 11 &amp; 12</span>
+          <span class="logo">C</span>
+          <span>Chemistry – Year 12</span>
         </div>
         <div class="subtitle">
-          Click a subject and year level to open its resource page.  
-          Each subject page includes category filtering for Textbooks, Assessments, Programs, PowerPoints, Notes and Videos.
+          ATAR and General WACE-style resources stored in this repository. Use the filter to show Textbooks, Assessments, Programs, PowerPoints, Notes or Videos.
         </div>
       </div>
-      <div class="badge">GitHub Pages + Sync</div>
+      <div class="small">
+        <a href="../../index.html">← Back to main vault</a>
+      </div>
     </header>
 
-    <!-- ICON LEGEND -->
-    <div class="legend">
-      <span><span class="icon-pdf">📕</span> PDF</span>
-      <span><span class="icon-doc">📘</span> Word</span>
-      <span><span class="icon-ppt">📙</span> PowerPoint</span>
-      <span><span class="icon-video">🎬</span> Video</span>
-      <span><span class="icon-link">🔗</span> Link</span>
+    <div class="filter-row">
+      <div>
+        <label for="categoryFilter">Filter by resource type</label>
+        <select id="categoryFilter">
+          <option value="all">All categories</option>
+          <option value="Textbooks">Textbooks</option>
+          <option value="Assessments">Assessments</option>
+          <option value="Programs">Programs</option>
+          <option value="PowerPoints">PowerPoints</option>
+          <option value="Notes">Notes</option>
+          <option value="Videos">Videos</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="hint">
+        When you add a row, set <code>data-category</code> to one of:
+        Textbooks, Assessments, Programs, PowerPoints, Notes, Videos, Other.
+      </div>
     </div>
 
-    <div class="grid">
-      <!-- CHEMISTRY -->
-      <section class="card">
-        <h2>🔬 Chemistry</h2>
-        <p>ATAR / General Chemistry resources.</p>
-        <div class="file-icons">
-          <span class="icon-pdf">📕</span>
-          <span class="icon-doc">📘</span>
-          <span class="icon-ppt">📙</span>
-          <span class="icon-video">🎬</span>
-        </div>
-        <ul>
-          <li><a href="chemistry/y11/index.html">Year 11 Chemistry</a></li>
-          <li><a href="chemistry/y12/index.html">Year 12 Chemistry</a></li>
-        </ul>
-      </section>
+    <!-- ATAR TABLE -->
+    <h2 class="section-title">ATAR Resources</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th style="width: 120px;">Format</th>
+          <th style="width: 120px;">Category</th>
+          <th style="width: 80px;">Type</th>
+        </tr>
+      </thead>
+      <tbody id="atarBody">
+        <!-- TEXTBOOKS EXAMPLE -->
+        <tr data-category="Textbooks">
+          <td>
+            <a href="textbooks/chem_y12_atf_revision_3_4.pdf" target="_blank" rel="noopener noreferrer">
+              ATF Chemistry ATAR Course Revision Series – Units 3 &amp; 4
+            </a>
+          </td>
+          <td>PDF</td>
+          <td>Textbooks</td>
+          <td><span class="tag">Local file</span></td>
+        </tr>
 
-      <!-- HUMAN BIOLOGY -->
-      <section class="card">
-        <h2>🧠 Human Biology</h2>
-        <p>Revision, programs, assessments, videos.</p>
-        <div class="file-icons">
-          <span class="icon-pdf">📕</span>
-          <span class="icon-doc">📘</span>
-          <span class="icon-video">🎬</span>
-        </div>
-        <ul>
-          <li><a href="human_bio/y11/index.html">Year 11 Human Biology</a></li>
-          <li><a href="human_bio/y12/index.html">Year 12 Human Biology</a></li>
-        </ul>
-      </section>
+        <!-- ASSESSMENTS EXAMPLE -->
+        <tr data-category="Assessments">
+          <td>
+            <a href="assessments/chem_y12_atar_exam_pack.pdf" target="_blank" rel="noopener noreferrer">
+              Chemistry Y12 ATAR – Practice Exam Pack
+            </a>
+          </td>
+          <td>PDF</td>
+          <td>Assessments</td>
+          <td><span class="tag">Local file</span></td>
+        </tr>
 
-      <!-- MATHEMATICS -->
-      <section class="card">
-        <h2>📐 Mathematics</h2>
-        <p>Applications, Methods, Specialist, Essential.</p>
-        <div class="file-icons">
-          <span class="icon-pdf">📕</span>
-          <span class="icon-ppt">📙</span>
-          <span class="icon-doc">📘</span>
-        </div>
-        <ul>
-          <li><a href="maths/y11/index.html">Year 11 Mathematics</a></li>
-          <li><a href="maths/y12/index.html">Year 12 Mathematics</a></li>
-        </ul>
-      </section>
+        <!-- POWERPOINT EXAMPLE -->
+        <tr data-category="PowerPoints">
+          <td>
+            <a href="powerpoints/chem_y12_intro_organic.pptx" target="_blank" rel="noopener noreferrer">
+              Intro to Organic Chemistry – Lesson PowerPoint
+            </a>
+          </td>
+          <td>PPTX</td>
+          <td>PowerPoints</td>
+          <td><span class="tag">Local file</span></td>
+        </tr>
 
-      <!-- PHYSICS -->
-      <section class="card">
-        <h2>⚛️ Physics</h2>
-        <p>Notes, exam questions, lesson slides, videos.</p>
-        <div class="file-icons">
-          <span class="icon-pdf">📕</span>
-          <span class="icon-video">🎬</span>
-          <span class="icon-ppt">📙</span>
-        </div>
-        <ul>
-          <li><a href="physics/y11/index.html">Year 11 Physics</a></li>
-          <li><a href="physics/y12/index.html">Year 12 Physics</a></li>
-        </ul>
-      </section>
-    </div>
+        <!-- NOTES EXAMPLE -->
+        <tr data-category="Notes">
+          <td>
+            <a href="notes/chem_y12_equilibrium_notes.pdf" target="_blank" rel="noopener noreferrer">
+              Chemical Equilibrium – Summary Notes
+            </a>
+          </td>
+          <td>PDF</td>
+          <td>Notes</td>
+          <td><span class="tag">Local file</span></td>
+        </tr>
+
+        <!-- VIDEOS EXAMPLE (could be mp4 or a small txt file with YouTube link) -->
+        <tr data-category="Videos">
+          <td>
+            <a href="videos/redox_video_link.txt" target="_blank" rel="noopener noreferrer">
+              Redox Reactions – Video Explanation (link)
+            </a>
+          </td>
+          <td>TXT</td>
+          <td>Videos</td>
+          <td><span class="tag">Local file</span></td>
+        </tr>
+
+        <!-- PROGRAMS EXAMPLE -->
+        <tr data-category="Programs">
+          <td>
+            <a href="programs/chem_y12_year_program.docx" target="_blank" rel="noopener noreferrer">
+              Chemistry ATAR Year 12 – Year Program
+            </a>
+          </td>
+          <td>DOCX</td>
+          <td>Programs</td>
+          <td><span class="tag">Local file</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- GENERAL TABLE -->
+    <h2 class="section-title">General Resources</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th style="width: 120px;">Format</th>
+          <th style="width: 120px;">Category</th>
+          <th style="width: 80px;">Type</th>
+        </tr>
+      </thead>
+      <tbody id="generalBody">
+        <tr data-category="Notes">
+          <td>
+            <a href="notes/chem_y12_general_revision_notes.pdf" target="_blank" rel="noopener noreferrer">
+              Chemistry Y12 General – Revision Notes
+            </a>
+          </td>
+          <td>PDF</td>
+          <td>Notes</td>
+          <td><span class="tag">Local file</span></td>
+        </tr>
+      </tbody>
+    </table>
 
     <footer>
-      File icons indicate the types of resources available inside each subject page.<br>
-      Add links by editing the subject’s <code>index.html</code> file.
+      To add a new resource: upload it into the correct subfolder
+      (<code>textbooks</code>, <code>assessments</code>, <code>programs</code>, <code>powerpoints</code>, <code>notes</code>, <code>videos</code>)
+      and then add a new table row linking to it.
     </footer>
   </div>
+
+  <script>
+    // Simple category filter for both ATAR and General tables
+    const categoryFilter = document.getElementById("categoryFilter");
+
+    function applyFilter() {
+      const value = categoryFilter.value;
+      const atarRows = document.querySelectorAll("#atarBody tr[data-category]");
+      const generalRows = document.querySelectorAll("#generalBody tr[data-category]");
+
+      function showOrHide(rows) {
+        rows.forEach(row => {
+          const cat = row.getAttribute("data-category");
+          if (value === "all" || cat === value) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      showOrHide(atarRows);
+      showOrHide(generalRows);
+    }
+
+    categoryFilter.addEventListener("change", applyFilter);
+    applyFilter(); // run on load
+  </script>
 </body>
 </html>
